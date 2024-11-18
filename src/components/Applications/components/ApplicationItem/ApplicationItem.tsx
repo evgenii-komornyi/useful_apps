@@ -1,0 +1,25 @@
+import {ReactElement} from "react";
+import Grid from "@mui/material/Grid2";
+import {AnimatedIconContainer, ApplicationBoxContainer, ApplicationTitle} from "./styles/ApplicationItem.ts";
+import {Icon} from "../../../Icon";
+import {IApplication} from "../../../../utils/common.ts";
+import {NavLink} from "../../../../styles/Global.ts";
+
+interface IProps {
+    application: IApplication;
+}
+
+export const ApplicationItem = ({application}: IProps): ReactElement => {
+    return (
+        <Grid size={{xs: 12, sm: 12, md: 6, lg: 4, xl: 4}}>
+            <NavLink to={`/${application.link}`}>
+                <ApplicationBoxContainer>
+                    <AnimatedIconContainer>
+                        <Icon icon={application.icon} />
+                    </AnimatedIconContainer>
+                    <ApplicationTitle>{application.title}</ApplicationTitle>
+                </ApplicationBoxContainer>
+            </NavLink>
+        </Grid>
+    )
+}
