@@ -15,7 +15,6 @@ import { AvailableAmount } from './components/AvailableAmount';
 import { CurrentAmount } from './components/CurrentAmount/CurrentAmount.tsx';
 import {
     calculateAvailableAmount,
-    calculateExpenses,
     calculatePaidExpenses,
 } from '../../../../../../../../utils/arrays/arrays.ts';
 
