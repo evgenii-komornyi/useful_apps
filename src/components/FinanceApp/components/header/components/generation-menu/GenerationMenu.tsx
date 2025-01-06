@@ -1,30 +1,30 @@
-import {ReactElement, useEffect, useState} from "react";
-import {Divider, IconButton, Menu, MenuItem, Tooltip} from "@mui/material";
-import {Icon} from "../../../../../Icon";
-import {faCalendarDays} from "@fortawesome/free-regular-svg-icons";
-import {useAnchor} from "../../../../../../hooks/common/useAnchor.ts";
-import {AnimatedContainer} from "../settings/styles/SettingsButton.ts";
-import {useBudgetStore} from "../../../../../../stores/finance-app/budget/useBudgetStore.ts";
-import {Budget, ProfitExpenseType} from "../../../../../../utils/common.ts";
-import {SnackbarAlert} from "../../../../../SnackbarAlert";
-import {useSnackbarStore} from "../../../../../../stores/common/snackbar/useSnackbarStore.ts";
-import {useFinanceSettingsStore} from "../../../../../../stores/finance-app/settings/useSettingsStore.ts";
+import { ReactElement, useEffect, useState } from 'react';
+import { Divider, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { Icon } from '../../../../../Icon';
+import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
+import { useAnchor } from '../../../../../../hooks/common/useAnchor.ts';
+import { AnimatedContainer } from '../settings/styles/SettingsButton.ts';
+import { useBudgetStore } from '../../../../../../stores/finance-app/budget/useBudgetStore.ts';
+import { Budget, ProfitExpenseType } from '../../../../../../utils/common.ts';
+import { SnackbarAlert } from '../../../../../SnackbarAlert';
+import { useSnackbarStore } from '../../../../../../stores/common/snackbar/useSnackbarStore.ts';
+import { useFinanceSettingsStore } from '../../../../../../stores/finance-app/settings/useSettingsStore.ts';
 
 const GENERATION_OPTIONS: number[] = [1, 3, 6, 12];
 
 export const GenerationMenu = (): ReactElement => {
     const { anchorEl, open, handleClick, handleClose } = useAnchor();
     const { budget, setBudget, setUpdatedSettings } = useBudgetStore();
-    const {user} = useFinanceSettingsStore(state=>state);
+    const { user } = useFinanceSettingsStore(state => state);
     const { setIsOpened } = useSnackbarStore();
 
     const [hasOpenedAlert, setHasOpenedAlert] = useState(false);
     const [generatedBudget, setGeneratedBudget] = useState<Budget[]>([]);
-    const [savedMonthsCountToGenerate, setSavedMonthsCountToGenerate] = useState<number>(0);
+    const [savedMonthsCountToGenerate, setSavedMonthsCountToGenerate] =
+        useState<number>(0);
 
     const getDaysInMonth = (year: number, month: number): number =>
         new Date(year, month + 1, 0).getDate();
-
 
     const generateBudget = (
         monthsCountToGenerate: number,
@@ -34,35 +34,41 @@ export const GenerationMenu = (): ReactElement => {
         const now = new Date();
         const lastElement: number = budget.length - 1;
         const currentMonth: number = now.getMonth();
-        const startMonth = skipCurrentMonth ? budget[lastElement].month + 1 : currentMonth;
-        const startYear = skipCurrentMonth ? budget[lastElement].year : now.getFullYear();
+        const startMonth = skipCurrentMonth
+            ? budget[lastElement].month + 1
+            : currentMonth;
+        const startYear = skipCurrentMonth
+            ? budget[lastElement].year
+            : now.getFullYear();
 
-        const budgetArray: Budget[] = Array.from({ length: monthsCountToGenerate }, (_, i) => {
-            const month = (startMonth + i) % 12;
-            const year = startYear + Math.floor((startMonth + i) / 12);
+        const budgetArray: Budget[] = Array.from(
+            { length: monthsCountToGenerate },
+            (_, i) => {
+                const month = (startMonth + i) % 12;
+                const year = startYear + Math.floor((startMonth + i) / 12);
 
-            return {
-                month,
-                year,
-                daysInMonth: getDaysInMonth(year, month),
-                profit: user && user.profit ? user.profit : [],
-                expenses: user && user.expenses ? user.expenses : [],
-            };
-        });
+                return {
+                    month,
+                    year,
+                    daysInMonth: getDaysInMonth(year, month),
+                    profit: user && user.profit ? user.profit : [],
+                    expenses: user && user.expenses ? user.expenses : [],
+                };
+            }
+        );
 
         setGeneratedBudget(budgetArray);
 
         if (callback) callback(budgetArray);
     };
 
-
     const setNewBudgetOrOpenChoiceWindow = () => {
         if (generatedBudget.length === 0) return;
-        
+
         if (budget.length === 0) {
             setBudget(generatedBudget);
         } else {
-            setIsOpened(true, "budget");
+            setIsOpened(true, 'budget');
         }
     };
 
@@ -84,21 +90,21 @@ export const GenerationMenu = (): ReactElement => {
         const id = target?.id;
 
         if (id) {
-            if (id === "addToExisting") {
-                generateBudget(savedMonthsCountToGenerate, true, (newBudget) => {
+            if (id === 'addToExisting') {
+                generateBudget(savedMonthsCountToGenerate, true, newBudget => {
                     setBudget([...budget, ...newBudget]);
                 });
             }
 
-            if (id === "replace") {
+            if (id === 'replace') {
                 setBudget(generatedBudget);
             }
 
-            setIsOpened(false, "budget");
+            setIsOpened(false, 'budget');
             generatedBudget.forEach(item => {
                 setUpdatedSettings(item.profit, ProfitExpenseType.Profit);
                 setUpdatedSettings(item.expenses, ProfitExpenseType.Expenses);
-            })
+            });
         }
     };
 
@@ -155,7 +161,13 @@ export const GenerationMenu = (): ReactElement => {
                 {GENERATION_OPTIONS.map((option, index) => (
                     <div key={index}>
                         <MenuItem onClick={() => generateBudgetHandler(option)}>
-                            {`${option === 12 ? `1 year` : `${option} month${option !== 1 ? 's' : ''}`}`}
+                            {`${
+                                option === 12
+                                    ? `1 year`
+                                    : `${option} month${
+                                          option !== 1 ? 's' : ''
+                                      }`
+                            }`}
                         </MenuItem>
                         {index !== GENERATION_OPTIONS.length - 1 && <Divider />}
                     </div>

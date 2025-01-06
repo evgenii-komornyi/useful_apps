@@ -1,4 +1,4 @@
-import {ICurrency} from "../utils/common.ts";
+import { ICurrency } from '../utils/common.ts';
 
 export const currencies: ICurrency[] = [
     {
@@ -16,5 +16,9 @@ export const currencies: ICurrency[] = [
     {
         value: 'JPY',
         label: '¥',
+    },
+    {
+        value: 'KGS',
+        label: 'c',
     },
 ];

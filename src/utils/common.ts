@@ -1,4 +1,4 @@
-import {IconDefinition} from "@fortawesome/free-solid-svg-icons";
+import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 export interface IApplication {
     id: string;
@@ -8,10 +8,10 @@ export interface IApplication {
 }
 
 export enum ProfitExpenseType {
-    Additional = "additional",
-    Configurable = "configurable",
-    Profit = "profit",
-    Expenses = "expenses",
+    Additional = 'additional',
+    Configurable = 'configurable',
+    Profit = 'profit',
+    Expenses = 'expenses',
 }
 
 export interface Profit {
@@ -69,7 +69,17 @@ export interface IBudgetState {
     addAdditionalItemToBudget: <T extends Profit | Expense>(
         newItem: T,
         itemType: 'profit' | 'expenses',
-        budgetDate?: BudgetDate,
+        budgetDate?: BudgetDate
+    ) => void;
+    addUnspecifiedMoneyFlowByType: <T extends Profit | Expense>(
+        newItem: T,
+        itemType: 'profit' | 'expenses',
+        budgetDate: BudgetDate
+    ) => void;
+    removeUnspecifiedMoneyFlowByType: (
+        itemToRemove: 'Saving' | 'Unknown',
+        itemType: 'profit' | 'expenses',
+        budgetDate: BudgetDate
     ) => void;
 }
 
@@ -79,10 +89,10 @@ export interface ICurrency {
 }
 
 export enum Season {
-    Winter = "Winter",
-    Spring = "Spring",
-    Summer = "Summer",
-    Autumn = "Autumn"
+    Winter = 'Winter',
+    Spring = 'Spring',
+    Summer = 'Summer',
+    Autumn = 'Autumn',
 }
 
 export interface BudgetDate {
