@@ -9,7 +9,10 @@ import {
     ProfitExpenseType,
 } from '../../../utils/common.ts';
 import { getCurrentMonth } from '../../../utils/checkers/date.ts';
-import { updateBudgetItems } from '../../../utils/arrays/arrays.ts';
+import {
+    updateBudgetItems,
+    updateItemAmount,
+} from '../../../utils/arrays/arrays.ts';
 
 export const useBudgetStore = create<IBudgetState>()(
     devtools(
@@ -33,6 +36,22 @@ export const useBudgetStore = create<IBudgetState>()(
                         currentMonth,
                         newUpdatedSettings,
                         itemType
+                    );
+                    set({ budget: updatedBudgets });
+                },
+
+                updateItemAmountByType: (
+                    itemId: string,
+                    newAmount: string,
+                    itemType: 'profit' | 'expenses',
+                    budgetDate: BudgetDate
+                ) => {
+                    const updatedBudgets = updateItemAmount(
+                        get().budget,
+                        itemId,
+                        itemType,
+                        newAmount,
+                        budgetDate
                     );
                     set({ budget: updatedBudgets });
                 },

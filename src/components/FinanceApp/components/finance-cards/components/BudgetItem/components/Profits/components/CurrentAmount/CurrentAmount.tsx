@@ -5,11 +5,15 @@ import { formatCurrencyByLocation } from '../../../../../../../../../../utils/fo
 import { ChangeCircleOutlined } from '@mui/icons-material';
 import { CurrentAmountField } from './components/CurrentAmountField';
 import {
+    Align,
     BudgetDate,
+    Direction,
     Expense,
+    Justify,
     Profit,
 } from '../../../../../../../../../../utils/common';
 import { isToday } from '../../../../../../../../../../utils/checkers/date';
+import { MainBoxContainer } from '../../../../../../../../../../styles/Global';
 
 interface Props {
     currentAmount: number;
@@ -33,29 +37,20 @@ export const CurrentAmount: FC<Props> = ({
     };
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}
+        <MainBoxContainer
+            $direction={Direction.Row}
+            $alignItems={Align.Center}
+            $justifyContent={Justify.SpaceBetween}
         >
             <Typography variant="body1">Current</Typography>
-            <Box
-                sx={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                }}
+            <MainBoxContainer
+                $direction={Direction.Row}
+                $alignItems={Align.Center}
+                $justifyContent={Justify.SpaceBetween}
             >
                 {isToday(budgetDate.month, budgetDate.year) && (
                     <Tooltip title="Add corrections" placement="bottom">
-                        <IconButton
-                            onClick={toggleFieldVisibility}
-                            sx={{ mr: 2 }}
-                        >
+                        <IconButton onClick={toggleFieldVisibility}>
                             <ChangeCircleOutlined />
                         </IconButton>
                     </Tooltip>
@@ -77,7 +72,7 @@ export const CurrentAmount: FC<Props> = ({
                         hideField={() => setIsFieldHide(true)}
                     />
                 )}
-            </Box>
-        </Box>
+            </MainBoxContainer>
+        </MainBoxContainer>
     );
 };

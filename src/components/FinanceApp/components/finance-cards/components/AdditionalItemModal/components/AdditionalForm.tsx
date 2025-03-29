@@ -1,5 +1,5 @@
 import { ChangeEvent, FC } from 'react';
-import { Box, TextField } from '@mui/material';
+import { Box, FormControlLabel, Switch, TextField } from '@mui/material';
 import {
     Expense,
     Profit,
@@ -12,12 +12,14 @@ interface Props {
     onChangeHandler: (
         e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
+    toggleEditable: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const AdditionalForm: FC<Props> = ({
     type,
     fields,
     onChangeHandler,
+    toggleEditable,
 }) => {
     return (
         <Box
@@ -34,7 +36,7 @@ export const AdditionalForm: FC<Props> = ({
             <Box
                 sx={{
                     display: 'flex',
-                    flexDirection: 'row',
+                    flexDirection: 'column',
                     mt: 2,
                     gap: 2,
                     mb: 2,
@@ -43,24 +45,18 @@ export const AdditionalForm: FC<Props> = ({
                 <TextField
                     name="title"
                     label="Title"
+                    size="small"
                     variant="outlined"
                     value={fields.title || ''}
                     onChange={onChangeHandler}
-                    sx={{
-                        flexGrow: 1,
-                        minWidth: '30ch',
-                    }}
                 />
                 <TextField
                     name="amount"
                     label="Amount"
+                    size="small"
                     variant="outlined"
                     value={fields.amount || ''}
                     onChange={onChangeHandler}
-                    sx={{
-                        flexGrow: 1,
-                        minWidth: '30ch',
-                    }}
                 />
                 <TextField
                     id={
@@ -73,6 +69,7 @@ export const AdditionalForm: FC<Props> = ({
                             ? 'profitDay'
                             : 'expenseDay'
                     }
+                    size="small"
                     label={`${
                         type === ProfitExpenseType.Profit ? 'Profit' : 'Expense'
                     } Day`}
@@ -82,10 +79,19 @@ export const AdditionalForm: FC<Props> = ({
                             : (fields as Expense).expenseDay || ''
                     }
                     onChange={onChangeHandler}
-                    sx={{
-                        flexGrow: 1,
-                        minWidth: '15ch',
-                    }}
+                />
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={fields.editable || false}
+                            onChange={toggleEditable}
+                            color="success"
+                            inputProps={{
+                                'aria-label': 'editable',
+                            }}
+                        />
+                    }
+                    label={`${fields.editable ? 'Editable' : 'Read-only'}`}
                 />
             </Box>
         </Box>

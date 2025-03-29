@@ -1,4 +1,4 @@
-import { ChangeEvent, ReactElement, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import {
     Button,
     DialogActions,
@@ -19,7 +19,7 @@ import {
 import { useBudgetStore } from '../../../../../../stores/finance-app/budget/useBudgetStore.ts';
 import { v4 as uuid4 } from 'uuid';
 
-export const AdditionalItemModal = (): ReactElement => {
+export const AdditionalItemModal: FC = () => {
     const { isOpened, type, budgetDate, setIsOpened } = useModalStore(
         state => state
     );
@@ -31,6 +31,7 @@ export const AdditionalItemModal = (): ReactElement => {
                   title: '',
                   amount: '',
                   profitDay: 1,
+                  editable: false,
                   type: ProfitExpenseType.Additional,
               }
             : {
@@ -38,6 +39,7 @@ export const AdditionalItemModal = (): ReactElement => {
                   title: '',
                   amount: '',
                   expenseDay: 1,
+                  editable: false,
                   type: ProfitExpenseType.Additional,
               };
 
@@ -49,6 +51,15 @@ export const AdditionalItemModal = (): ReactElement => {
         setFields(prevFields => ({
             ...prevFields,
             [name]: value,
+        }));
+    };
+
+    const toggleEditable = ({
+        target,
+    }: ChangeEvent<HTMLInputElement>): void => {
+        setFields(prevFields => ({
+            ...prevFields,
+            editable: target.checked,
         }));
     };
 
@@ -83,7 +94,7 @@ export const AdditionalItemModal = (): ReactElement => {
             aria-hidden={true}
             open={isOpened}
             fullWidth={true}
-            maxWidth="md"
+            maxWidth="sm"
         >
             <DialogTitle sx={{ m: 0, p: 2 }} id="settings">
                 Add new {withoutLastLetterIfTypeExpenses(type)}
@@ -105,13 +116,25 @@ export const AdditionalItemModal = (): ReactElement => {
                     type={type}
                     fields={fields}
                     onChangeHandler={onChangeHandler}
+                    toggleEditable={toggleEditable}
                 />
             </DialogContent>
-            <DialogActions>
-                <Button variant="outlined" onClick={addItemHandler}>
+            <DialogActions
+                sx={{
+                    flexDirection: { xs: 'column', sm: 'row' },
+                    gap: 2,
+                    justifyContent: { xs: 'center', sm: 'flex-end' },
+                }}
+            >
+                <Button
+                    variant="outlined"
+                    color="success"
+                    onClick={addItemHandler}
+                    sx={{ ml: { xs: 1, sm: 0 } }}
+                >
                     Add {withoutLastLetterIfTypeExpenses(type)}
                 </Button>
-                <Button variant="contained" onClick={closeModal}>
+                <Button variant="outlined" onClick={closeModal}>
                     Discard changes
                 </Button>
             </DialogActions>

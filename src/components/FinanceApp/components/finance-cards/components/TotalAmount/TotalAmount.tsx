@@ -1,14 +1,21 @@
-import { ReactElement } from 'react';
-import { Expense, Profit } from '../../../../../../utils/common.ts';
-import { Box, Typography } from '@mui/material';
+import { FC } from 'react';
+import {
+    Align,
+    Direction,
+    Expense,
+    Justify,
+    Profit,
+} from '../../../../../../utils/common.ts';
+import { Typography } from '@mui/material';
 import { formatCurrencyByLocation } from '../../../../../../utils/formatters/currency.ts';
 import { useFinanceSettingsStore } from '../../../../../../stores/finance-app/settings/useSettingsStore.ts';
+import { MainBoxContainer } from '../../../../../../styles/Global.ts';
 
 interface Props {
     array: Profit[] | Expense[];
 }
 
-export const TotalAmount = ({ array }: Props): ReactElement => {
+export const TotalAmount: FC<Props> = ({ array }) => {
     const { user } = useFinanceSettingsStore(state => state);
 
     const total: number = array.reduce(
@@ -17,18 +24,15 @@ export const TotalAmount = ({ array }: Props): ReactElement => {
     );
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}
+        <MainBoxContainer
+            $direction={Direction.Row}
+            $justifyContent={Justify.SpaceBetween}
+            $alignItems={Align.Center}
         >
             <Typography variant="body1">Total</Typography>
             <Typography variant="body1">
                 {formatCurrencyByLocation(user.locale, user.currency, total)}
             </Typography>
-        </Box>
+        </MainBoxContainer>
     );
 };

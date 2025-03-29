@@ -1,15 +1,23 @@
-import {ReactElement} from "react";
-import {Button, DialogTitle, DialogContent, DialogActions, IconButton} from '@mui/material';
+import { FC } from 'react';
+import {
+    Button,
+    DialogTitle,
+    DialogContent,
+    DialogActions,
+    IconButton,
+} from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import {useFinanceSettingsModalStore} from "../../../../stores/finance-app/modal/useFinanceSettingsModalStore.ts";
-import {Modal} from "./styles/FinanceSettings.ts";
-import {User} from "../../../../utils/common.ts";
-import {SettingTabs} from "./components/tabs";
+import { useFinanceSettingsModalStore } from '../../../../stores/finance-app/modal/useFinanceSettingsModalStore.ts';
+import { Modal } from './styles/FinanceSettings.ts';
+import { User } from '../../../../utils/common.ts';
+import { SettingTabs } from './components/tabs';
 
-export type IUserState = User
+export type IUserState = User;
 
-export const FinanceSettings = ():ReactElement => {
-    const {isOpened, closeModal} = useFinanceSettingsModalStore(state=>state);
+export const FinanceSettings: FC = () => {
+    const { isOpened, closeModal } = useFinanceSettingsModalStore(
+        state => state
+    );
 
     return (
         <Modal
@@ -17,7 +25,7 @@ export const FinanceSettings = ():ReactElement => {
             aria-labelledby="settings"
             open={isOpened}
             fullWidth={true}
-            maxWidth="md"
+            maxWidth="sm"
         >
             <DialogTitle sx={{ m: 0, p: 2 }} id="settings">
                 Settings
@@ -25,7 +33,7 @@ export const FinanceSettings = ():ReactElement => {
             <IconButton
                 aria-label="close"
                 onClick={closeModal}
-                sx={(theme) => ({
+                sx={theme => ({
                     position: 'absolute',
                     right: 8,
                     top: 8,
@@ -38,8 +46,14 @@ export const FinanceSettings = ():ReactElement => {
                 <SettingTabs />
             </DialogContent>
             <DialogActions>
-                <Button variant="contained" onClick={closeModal}>Discard changes</Button>
+                <Button
+                    variant="outlined"
+                    color="secondary"
+                    onClick={closeModal}
+                >
+                    Discard changes
+                </Button>
             </DialogActions>
         </Modal>
     );
-}
+};

@@ -1,11 +1,11 @@
-import {ReactElement} from "react";
-import {Container} from "@mui/material";
-import {Applications} from "../../components/Applications";
+import { FC } from 'react';
+import { Container } from '@mui/material';
+import { Applications } from '../../components/Applications';
 
-export const Main = (): ReactElement => {
+export const Main: FC = () => {
     return (
-        <Container maxWidth='xl' sx={{mt:3}}>
+        <Container maxWidth="xl" sx={{ mt: 3 }}>
             <Applications />
         </Container>
     );
-}
+};

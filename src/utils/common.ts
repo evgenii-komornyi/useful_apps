@@ -19,6 +19,7 @@ export interface Profit {
     title: string;
     amount: string;
     profitDay: number;
+    editable: boolean;
     validFrom?: string;
     validUntil?: string;
     type: ProfitExpenseType;
@@ -29,6 +30,7 @@ export interface Expense {
     title: string;
     amount: string;
     expenseDay: number;
+    editable: boolean;
     validFrom?: string;
     validUntil?: string;
     type: ProfitExpenseType;
@@ -66,6 +68,12 @@ export interface IBudgetState {
         newUpdatedSettings: T[],
         itemType: 'profit' | 'expenses'
     ) => void;
+    updateItemAmountByType: (
+        itemId: string,
+        newAmount: string,
+        itemType: 'profit' | 'expenses',
+        budgetDate: BudgetDate
+    ) => void;
     addAdditionalItemToBudget: <T extends Profit | Expense>(
         newItem: T,
         itemType: 'profit' | 'expenses',
@@ -99,3 +107,48 @@ export interface BudgetDate {
     year: number;
     month: number;
 }
+
+export enum Direction {
+    Row = 'row',
+    Column = 'column',
+}
+
+export enum Align {
+    Center = 'center',
+}
+
+export enum Justify {
+    Center = 'center',
+    SpaceBetween = 'space-between',
+    SpaceAround = 'space-around',
+    Start = 'flex-start',
+    End = 'flex-end',
+}
+
+export enum Position {
+    Absolute = 'absolute',
+    Relative = 'relative',
+}
+
+export enum SortOrder {
+    None = 0,
+    Asc = 1,
+    Desc = 2,
+}
+
+export type SortMethod = 'asc' | 'desc';
+export type SortCategory = 'title' | 'amount' | 'expenseDay';
+
+export interface IFilterState {
+    searchValue?: string;
+    sortCategory?: SortCategory;
+    sortMethod?: SortOrder;
+    selectedCard?: number;
+
+    setSearchValue: (searchValue?: string) => void;
+    setSortCategory: (sortCategory?: SortCategory) => void;
+    setSortMethod: (sortMethod?: SortOrder) => void;
+    selectCard: (selectedCard?: number) => void;
+}
+
+export type IconSize = 'small' | 'medium' | 'large';

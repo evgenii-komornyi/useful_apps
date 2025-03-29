@@ -3,20 +3,20 @@ import AppBar from '@mui/material/AppBar';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
-import {ReactElement, SyntheticEvent, useState} from "react";
-import {TabPanel} from "./components/TabPanel";
-import {ProfitSettings} from "./components/TabPanel/components/profit-settings";
-import {ExpensesSettings} from "./components/TabPanel/components/expenses-settings";
-import {MainSettings} from "./components/TabPanel/components/main-settings";
+import { FC, SyntheticEvent, useState } from 'react';
+import { TabPanel } from './components/TabPanel';
+import { ProfitSettings } from './components/TabPanel/components/profit-settings';
+import { ExpensesSettings } from './components/TabPanel/components/expenses-settings';
+import { MainSettings } from './components/TabPanel/components/main-settings';
 
 const a11yProps = (index: number) => {
     return {
         id: `tab-${index}`,
         'aria-controls': `tabpanel-${index}`,
     };
-}
+};
 
-export const SettingTabs = (): ReactElement => {
+export const SettingTabs: FC = () => {
     const theme = useTheme();
     const [value, setValue] = useState(0);
 
@@ -51,4 +51,4 @@ export const SettingTabs = (): ReactElement => {
             </TabPanel>
         </Box>
     );
-}
+};

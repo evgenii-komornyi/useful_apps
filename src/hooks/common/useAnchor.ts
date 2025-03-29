@@ -1,4 +1,4 @@
-import {useState, MouseEvent} from "react";
+import { useState, MouseEvent } from 'react';
 
 export const useAnchor = () => {
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -12,5 +12,5 @@ export const useAnchor = () => {
         setAnchorEl(null);
     };
 
-    return {anchorEl, open, handleClick, handleClose};
-}
+    return { anchorEl, open, handleClick, handleClose };
+};

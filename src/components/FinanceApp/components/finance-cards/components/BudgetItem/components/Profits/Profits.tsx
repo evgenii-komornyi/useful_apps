@@ -1,12 +1,15 @@
 import { Fragment, FC } from 'react';
 import {
     BudgetDate,
+    Direction,
     Expense,
+    Justify,
+    Position,
     Profit,
     ProfitExpenseType,
 } from '../../../../../../../../utils/common.ts';
 import { ProfitItem } from './components/ProfitItem';
-import { Box, Divider, IconButton, Tooltip } from '@mui/material';
+import { Box as MUIBox, Divider, IconButton, Tooltip } from '@mui/material';
 import { AddCircleOutlineRounded } from '@mui/icons-material';
 import { ProfitContainer } from './styles/Profits.ts';
 import { useModalStore } from '../../../../../../../../stores/common/modal/useModalStore.ts';
@@ -17,6 +20,7 @@ import {
     calculateAvailableAmount,
     calculatePaidExpenses,
 } from '../../../../../../../../utils/arrays/arrays.ts';
+import { Box, PositionedBox } from '../../../../../../../../styles/Global.ts';
 
 interface Props {
     profit: Profit[];
@@ -28,13 +32,7 @@ export const Profits: FC<Props> = ({ profit, expenses, budgetDate }) => {
     const { setIsOpened } = useModalStore(state => state);
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-start',
-            }}
-        >
+        <Box $direction={Direction.Column} $justifyContent={Justify.Start}>
             <ProfitContainer>
                 {profit.length > 0 &&
                     profit.map(profitItem => (
@@ -47,21 +45,10 @@ export const Profits: FC<Props> = ({ profit, expenses, budgetDate }) => {
                     ))}
             </ProfitContainer>
             <Divider />
-            <Box
-                sx={{
-                    position: 'relative',
-                    width: '100%',
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
-                <Box
+            <PositionedBox $position={Position.Relative} sx={{ mb: 1 }}>
+                <PositionedBox
+                    $position={Position.Absolute}
                     sx={{
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        position: 'absolute',
                         bottom: -20,
                     }}
                 >
@@ -78,30 +65,29 @@ export const Profits: FC<Props> = ({ profit, expenses, budgetDate }) => {
                             <AddCircleOutlineRounded />
                         </IconButton>
                     </Tooltip>
-                </Box>
-            </Box>
+                </PositionedBox>
+            </PositionedBox>
             <Box
+                $direction={Direction.Column}
+                $justifyContent={Justify.Center}
                 sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    justifyContent: 'center',
                     m: 2,
                 }}
             >
-                <Box sx={{ mb: 2 }}>
-                    <Box sx={{ mb: 1 }}>
+                <MUIBox sx={{ mb: 2 }}>
+                    <MUIBox sx={{ mb: 1 }}>
                         <TotalAmount array={profit} />
-                    </Box>
+                    </MUIBox>
                     <Divider />
-                    <Box sx={{ mt: 1, mb: 1 }}>
+                    <MUIBox sx={{ mt: 1, mb: 1 }}>
                         <AvailableAmount
                             profit={profit}
                             expenses={expenses}
                             date={budgetDate}
                         />
-                    </Box>
+                    </MUIBox>
                     <Divider />
-                    <Box sx={{ mt: 1 }}>
+                    <MUIBox sx={{ mt: 1 }}>
                         <CurrentAmount
                             currentAmount={
                                 calculateAvailableAmount(profit, budgetDate) -
@@ -111,8 +97,8 @@ export const Profits: FC<Props> = ({ profit, expenses, budgetDate }) => {
                             expenses={expenses}
                             budgetDate={budgetDate}
                         />
-                    </Box>
-                </Box>
+                    </MUIBox>
+                </MUIBox>
             </Box>
         </Box>
     );

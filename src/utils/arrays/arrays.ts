@@ -7,6 +7,34 @@ import {
 } from '../common.ts';
 import { isPaymentDay, parseDate } from '../checkers/date.ts';
 
+export const updateItemAmount = (
+    budgetItems: Budget[],
+    id: string,
+    itemType: 'profit' | 'expenses',
+    newAmount: string,
+    budgetDate: BudgetDate
+): Budget[] => {
+    return budgetItems.map((budgetItem: Budget) => {
+        const itemsByType: (Profit | Expense)[] = budgetItem[itemType];
+
+        if (!Array.isArray(itemsByType)) {
+            return budgetItem;
+        }
+
+        const updatedItems = itemsByType.map(item =>
+            item.id === id ? { ...item, amount: String(newAmount) } : item
+        );
+
+        return budgetItem.month === budgetDate.month &&
+            budgetItem.year === budgetDate.year
+            ? {
+                  ...budgetItem,
+                  [itemType]: updatedItems,
+              }
+            : budgetItem;
+    });
+};
+
 export const updateBudgetItems = <T extends Profit | Expense>(
     budget: Budget[],
     currentMonth: number,
@@ -108,6 +136,7 @@ export const calculateMoneyPerDay = (
     );
 
     return (
-        (availableAmount - futureExpenses) / daysInMonth - new Date().getDate()
+        (availableAmount - futureExpenses) /
+        (daysInMonth - new Date().getDate())
     );
 };

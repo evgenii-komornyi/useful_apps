@@ -1,19 +1,34 @@
-import {ReactElement} from "react";
-import {BudgetDate, Profit} from "../../../../../../../../../../utils/common.ts";
-import {ProfitItemContainer, ProfitItemCurrencyContainer} from "./styles/ProfitItem.ts";
-import {BudgetInfoLine} from "./components/BudgetInfoLine";
+import { FC } from 'react';
+import {
+    BudgetDate,
+    Profit,
+    ProfitExpenseType,
+} from '../../../../../../../../../../utils/common.ts';
+import {
+    ProfitItemContainer,
+    ProfitItemCurrencyContainer,
+} from './styles/ProfitItem.ts';
+import { BudgetInfoLine } from '../../../BudgetInfoLine';
 
 interface Props {
     profitItem: Profit;
     date: BudgetDate;
 }
 
-export const ProfitItem = ({profitItem, date}: Props): ReactElement => {
+export const ProfitItem: FC<Props> = ({ profitItem, date }) => {
     return (
         <ProfitItemContainer>
             <ProfitItemCurrencyContainer>
-                <BudgetInfoLine day={profitItem.profitDay} title={profitItem.title} date={date} amount={+profitItem.amount} />
+                <BudgetInfoLine
+                    id={profitItem.id}
+                    day={profitItem.profitDay}
+                    title={profitItem.title}
+                    date={date}
+                    amount={+profitItem.amount}
+                    editable={profitItem.editable}
+                    type={ProfitExpenseType.Profit}
+                />
             </ProfitItemCurrencyContainer>
         </ProfitItemContainer>
-    )
-}
+    );
+};

@@ -24,9 +24,9 @@ export const CardDate = styled.div`
 export const CardDateTitle = styled.h1`
     padding: 5px 30px;
     text-transform: uppercase;
-    width: 300px;
+    width: clamp(120px, 300px, 300px);
     text-align: center;
-    font-size: 1.5rem;
+    font-size: clamp(0.1rem, 1.5rem, 1.5rem);
     background: #101316;
     border-radius: 10px;
     box-shadow: 0 0 10px 1px rgba(255, 255, 255, 0.7);
@@ -54,7 +54,8 @@ export const CardContainer = styled.div<{ $isActive: boolean; $month: number }>`
     justify-content: space-between;
     align-items: center;
     background: #101316;
-    padding: 50px 10px;
+    padding: 4rem 0.5rem;
+    min-width: 320px;
     height: 70vh;
     border-radius: 15px;
     margin: 5px 10px;
@@ -75,7 +76,8 @@ export const CardContentWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
     width: 100%;
-    height: 70vh;
+    height: 800px;
+    max-height: 800px;
     padding: 10px 20px;
     overflow-y: auto;
 

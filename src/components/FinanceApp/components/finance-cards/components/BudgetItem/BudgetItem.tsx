@@ -7,7 +7,7 @@ import {
 } from './styles/BudgetItem.ts';
 import { formatDateByLocale } from '../../../../../../utils/formatters/dates.ts';
 import { isToday } from '../../../../../../utils/checkers/date.ts';
-import { ReactElement } from 'react';
+import { FC } from 'react';
 import { Box, Divider, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid2';
 import { Budget, BudgetDate } from '../../../../../../utils/common.ts';
@@ -19,9 +19,10 @@ import { formatCurrencyByLocation } from '../../../../../../utils/formatters/cur
 
 interface Props {
     budgetItem: Budget;
+    idx: number;
 }
 
-export const BudgetItem = ({ budgetItem }: Props): ReactElement => {
+export const BudgetItem: FC<Props> = ({ budgetItem, idx }) => {
     const { user } = useFinanceSettingsStore(state => state);
     const budgetDate: BudgetDate = {
         year: budgetItem.year,
@@ -29,7 +30,7 @@ export const BudgetItem = ({ budgetItem }: Props): ReactElement => {
     };
 
     return (
-        <Grid size={{ xs: 4 }}>
+        <Grid size={{ lg: 4 }}>
             <CardWrapper $month={budgetItem.month}>
                 <CardDate>
                     <CardDateTitle>
@@ -54,6 +55,7 @@ export const BudgetItem = ({ budgetItem }: Props): ReactElement => {
                         <Expenses
                             expenses={budgetItem.expenses}
                             budgetDate={budgetDate}
+                            idx={idx}
                         />
 
                         {isToday(budgetItem.month, budgetItem.year) && (

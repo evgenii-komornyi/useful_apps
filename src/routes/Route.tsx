@@ -2,7 +2,7 @@ import { ReactElement, memo } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Main } from '../pages/main';
-import {Finance} from "../pages/finance";
+import { Finance } from '../pages/finance';
 
 interface IRoute {
     path: string;
@@ -19,7 +19,7 @@ const NonMemoizedRoutes = (): ReactElement => {
     return (
         <Routes>
             {mainRoutes.map(({ path, page }, index) => (
-                    <Route key={index} path={path} element={page} />
+                <Route key={index} path={path} element={page} />
             ))}
         </Routes>
     );

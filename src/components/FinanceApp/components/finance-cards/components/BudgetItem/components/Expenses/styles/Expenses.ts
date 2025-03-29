@@ -8,5 +8,6 @@ export const ExpensesContainer = styled.div`
     overflow-y: auto;
     padding: 15px 10px;
     margin-bottom: 10px;
-    max-height: 300px;
+    height: 220px;
+    max-height: 220px;
 `;

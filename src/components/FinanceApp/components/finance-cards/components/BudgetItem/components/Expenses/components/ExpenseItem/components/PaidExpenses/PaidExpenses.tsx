@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import { Box, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import {
     BudgetDate,
     Expense,
@@ -8,6 +8,7 @@ import {
 import { useFinanceSettingsStore } from '../../../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
 import { calculatePaidExpenses } from '../../../../../../../../../../../../utils/arrays/arrays';
 import { formatCurrencyByLocation } from '../../../../../../../../../../../../utils/formatters/currency';
+import { Container } from './styles/PaidExpense';
 
 interface Props {
     expenses: Expense[];
@@ -20,14 +21,7 @@ export const PaidExpenses: FC<Props> = ({ expenses, date }) => {
     const paidExpenses: number = calculatePaidExpenses(expenses, date);
 
     return (
-        <Box
-            sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-            }}
-        >
+        <Container>
             <Typography variant="body1">Paid</Typography>
             <Typography variant="body1">
                 {formatCurrencyByLocation(
@@ -36,6 +30,6 @@ export const PaidExpenses: FC<Props> = ({ expenses, date }) => {
                     paidExpenses
                 )}
             </Typography>
-        </Box>
+        </Container>
     );
 };

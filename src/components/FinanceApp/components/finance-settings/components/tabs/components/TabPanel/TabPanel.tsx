@@ -1,14 +1,14 @@
-import Box from "@mui/material/Box";
-import {ReactElement, ReactNode} from "react";
+import Box from '@mui/material/Box';
+import { FC, ReactNode } from 'react';
 
-interface TabPanelProps {
+interface Props {
     children?: ReactNode;
     dir?: string;
     index: number;
     value: number;
 }
 
-export  const TabPanel = ({ children, value, index, ...other }: TabPanelProps): ReactElement => {
+export const TabPanel: FC<Props> = ({ children, value, index, ...other }) => {
     return (
         <div
             role="tabpanel"
@@ -17,11 +17,7 @@ export  const TabPanel = ({ children, value, index, ...other }: TabPanelProps): 
             aria-labelledby={`tab-${index}`}
             {...other}
         >
-            {value === index && (
-                <Box sx={{ p: 3 }}>
-                    {children}
-                </Box>
-            )}
+            {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
         </div>
     );
-}
+};

@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 
 interface IFinanceSettingsSnackbarState {
     isOpened: {
-        [key: string]: boolean
+        [key: string]: boolean;
     };
 
     setIsOpened: (isOpened: boolean, type: string) => void;
@@ -15,15 +15,16 @@ export const useSnackbarStore = create<IFinanceSettingsSnackbarState>()(
             budget: false,
             profit: false,
             expenses: false,
+            changesDetection: false,
         },
 
         setIsOpened: (isOpened: boolean, type: string) => {
             set(state => ({
                 isOpened: {
                     ...state.isOpened,
-                    [type]: isOpened
-                }
+                    [type]: isOpened,
+                },
             }));
-        }
+        },
     }))
 );

@@ -1,6 +1,8 @@
-import styled, {createGlobalStyle} from "styled-components";
-import {Grid2 as Grid} from "@mui/material";
-import {Link} from "react-router-dom";
+import styled, { createGlobalStyle } from 'styled-components';
+import { Grid2 as Grid } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Align, Direction, Justify, Position } from '../utils/common';
+import MUIBox from '@mui/material/Box';
 
 export const ApplicationsContentContainer = styled(Grid)`
     justify-content: center;
@@ -8,7 +10,7 @@ export const ApplicationsContentContainer = styled(Grid)`
     height: 80vh;
     overflow-y: scroll;
     border: 1px solid white;
-`
+`;
 
 export const GlobalStyle = createGlobalStyle`
   @property --fill {
@@ -29,14 +31,38 @@ export const Wrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-`
+`;
 
 export const Main = styled.div`
     flex: 1;
 `;
 
-
 export const NavLink = styled(Link)`
     text-decoration: none;
     color: floralwhite;
-`
+`;
+
+export const Box = styled(MUIBox)<{
+    $direction: Direction;
+    $justifyContent: Justify;
+}>`
+    && {
+        display: flex;
+        flex-direction: ${({ $direction }) => $direction};
+        justify-content: ${({ $justifyContent }) => $justifyContent};
+    }
+`;
+
+export const MainBoxContainer = styled(Box)<{ $alignItems: Align }>`
+    && {
+        align-items: ${({ $alignItems }) => $alignItems};
+    }
+`;
+
+export const PositionedBox = styled(MUIBox)<{ $position: Position }>`
+    display: flex;
+    position: ${({ $position }) => $position};
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+`;

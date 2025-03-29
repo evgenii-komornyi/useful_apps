@@ -48,7 +48,7 @@ export const CurrentAmountField: FC<Props> = ({
 
             const date: Date = new Date();
 
-            const inconsistency: number = currentAmount - Number(newValue);
+            const inconsistency: number = currentAmount - +newValue;
 
             const savingProfit: Profit | undefined = profit.find(
                 item => item.title === 'Saving'
@@ -68,6 +68,7 @@ export const CurrentAmountField: FC<Props> = ({
                     id: uuidv4(),
                     title: 'Unknown',
                     amount: Math.abs(resultingCorrection).toFixed(2),
+                    editable: unknownExpense?.editable || false,
                     type: ProfitExpenseType.Expenses,
                     expenseDay: date.getDate(),
                 };
@@ -90,6 +91,7 @@ export const CurrentAmountField: FC<Props> = ({
                     id: uuidv4(),
                     title: 'Saving',
                     amount: resultingCorrection.toFixed(2),
+                    editable: savingProfit?.editable || false,
                     type: ProfitExpenseType.Profit,
                     profitDay: date.getDate(),
                 };
@@ -125,6 +127,8 @@ export const CurrentAmountField: FC<Props> = ({
             hideField();
             setError('');
         }
+
+        if (e.key === 'Escape') hideField();
     };
 
     return (
@@ -133,6 +137,7 @@ export const CurrentAmountField: FC<Props> = ({
             value={newValue}
             label="Current"
             size="small"
+            autoFocus={true}
             variant="outlined"
             slotProps={{
                 input: {
@@ -145,7 +150,7 @@ export const CurrentAmountField: FC<Props> = ({
                 },
             }}
             helperText={error}
-            sx={{ width: 200 }}
+            sx={{ width: 80 }}
             onChange={onChangeHandler}
             onKeyDown={onKeyPressHandler}
         />
