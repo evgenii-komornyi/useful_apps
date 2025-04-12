@@ -30,7 +30,7 @@ export const BudgetItem: FC<Props> = ({ budgetItem, idx }) => {
     };
 
     return (
-        <Grid size={{ lg: 4 }}>
+        <Grid size={{ lg: 12, md: 12, sm: 12, xs: 12 }}>
             <CardWrapper $month={budgetItem.month}>
                 <CardDate>
                     <CardDateTitle>
@@ -62,6 +62,12 @@ export const BudgetItem: FC<Props> = ({ budgetItem, idx }) => {
                             <Box sx={{ position: 'absolute', bottom: 20 }}>
                                 <Typography variant="body1">
                                     Per day:{' '}
+                                    {formatCurrencyByLocation(
+                                        user.locale,
+                                        user.currency,
+                                        0.0
+                                    )}
+                                    /
                                     {formatCurrencyByLocation(
                                         user.locale,
                                         user.currency,
