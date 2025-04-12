@@ -5,7 +5,6 @@ import {
     Expense,
     Justify,
     Position,
-    Profit,
     ProfitExpenseType,
     SortOrder,
 } from '../../../../../../../../utils/common.ts';

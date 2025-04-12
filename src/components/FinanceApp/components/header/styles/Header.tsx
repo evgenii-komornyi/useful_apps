@@ -6,6 +6,12 @@ export const HeaderContainer = styled.div`
     align-items: center;
     padding: 5rem;
     flex-direction: row;
+
+    @media screen and (max-width: 768px) {
+        flex-direction: column;
+        justify-content: center;
+        padding: 1rem;
+    }
 `;
 
 export const ControlContainer = styled.div`
