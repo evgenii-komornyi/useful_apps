@@ -35,6 +35,25 @@ export const updateItemAmount = (
     });
 };
 
+export const updateMoneyPerDayAmount = (
+    budgetItems: Budget[],
+    newAmount: number,
+    budgetDate: BudgetDate
+): Budget[] => {
+    return budgetItems.map(budget => {
+        if (
+            budget.month === budgetDate.month &&
+            budget.year === budgetDate.year
+        ) {
+            return {
+                ...budget,
+                moneyPerDay: newAmount,
+            };
+        }
+        return budget;
+    });
+};
+
 export const updateBudgetItems = <T extends Profit | Expense>(
     budget: Budget[],
     currentMonth: number,
@@ -130,13 +149,21 @@ export const calculateMoneyPerDay = (
     daysInMonth: number
 ): number => {
     const availableAmount: number = calculateAvailableAmount(profit, date);
-    const futureExpenses: number = expenses.reduce(
-        (acc: number, item: Expense) => acc + Number(item.amount),
-        0
-    );
+    const futureExpenses: number = calculateExpenses(expenses);
 
     return (
         (availableAmount - futureExpenses) /
         (daysInMonth - new Date().getDate())
     );
+};
+
+export const calculateMoneyPerDayInFuture = (
+    profit: Profit[],
+    expenses: Expense[],
+    daysInMonth: number
+): number => {
+    const availableAmount: number = calculateAvailableAmount(profit);
+    const futureExpenses: number = calculateExpenses(expenses);
+
+    return (availableAmount - futureExpenses) / daysInMonth;
 };
