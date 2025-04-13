@@ -8,6 +8,7 @@ import { TabPanel } from './components/TabPanel';
 import { ProfitSettings } from './components/TabPanel/components/profit-settings';
 import { ExpensesSettings } from './components/TabPanel/components/expenses-settings';
 import { MainSettings } from './components/TabPanel/components/main-settings';
+import { ImportExportSettings } from './components/TabPanel/components/import-export-settings';
 
 const a11yProps = (index: number) => {
     return {
@@ -38,6 +39,7 @@ export const SettingTabs: FC = () => {
                     <Tab label="Main" {...a11yProps(0)} />
                     <Tab label="Profit" {...a11yProps(1)} />
                     <Tab label="Expenses" {...a11yProps(2)} />
+                    <Tab label="Import/Export" {...a11yProps(3)} />
                 </Tabs>
             </AppBar>
             <TabPanel value={value} index={0} dir={theme.direction}>
@@ -48,6 +50,9 @@ export const SettingTabs: FC = () => {
             </TabPanel>
             <TabPanel value={value} index={2} dir={theme.direction}>
                 <ExpensesSettings />
+            </TabPanel>
+            <TabPanel value={value} index={3} dir={theme.direction}>
+                <ImportExportSettings />
             </TabPanel>
         </Box>
     );

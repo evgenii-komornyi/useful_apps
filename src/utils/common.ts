@@ -47,6 +47,7 @@ export interface User {
 export interface IFinanceSettingsState {
     user: User;
 
+    importSettings: (user: User) => void;
     setCurrency: (newCurrency: string) => void;
     setLocale: (newLocale: string) => void;
     setMoneyPerDay: (newMoneyPerDay: number) => void;

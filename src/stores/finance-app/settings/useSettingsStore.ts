@@ -21,6 +21,10 @@ export const useFinanceSettingsStore = create<IFinanceSettingsState>()(
             set => ({
                 user: initialState,
 
+                importSettings: (user: User): void => {
+                    set({ user });
+                },
+
                 setCurrency: (newCurrency: string) => {
                     set(state => ({
                         user: { ...state.user, currency: newCurrency },

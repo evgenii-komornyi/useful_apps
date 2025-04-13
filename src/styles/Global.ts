@@ -57,6 +57,12 @@ export const MainBoxContainer = styled(Box)<{ $alignItems: Align }>`
     && {
         align-items: ${({ $alignItems }) => $alignItems};
     }
+
+    .files-ui-file-mosaic-main-container .files-ui-file-mosaic-file-name {
+        color: white;
+        margin-top: 3px;
+        font-size: 12px;
+    }
 `;
 
 export const PositionedBox = styled(MUIBox)<{ $position: Position }>`
