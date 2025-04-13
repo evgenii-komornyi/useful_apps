@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useFinanceSettingsStore } from '../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { IconButton, Tooltip, Typography } from '@mui/material';
 import { formatCurrencyByLocation } from '../../../../../../../../../../utils/formatters/currency';
 import { ChangeCircleOutlined } from '@mui/icons-material';
 import { CurrentAmountField } from './components/CurrentAmountField';
