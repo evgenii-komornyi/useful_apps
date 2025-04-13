@@ -8,13 +8,13 @@ import { IUserState } from '../../../../../../FinanceSettings.tsx';
 type UserState = Omit<IUserState, 'profit' | 'expenses'>;
 
 export const MainSettings: FC = () => {
-    const { user, setCurrency, setLocale } = useFinanceSettingsStore(
-        state => state
-    );
+    const { user, setCurrency, setLocale, setMoneyPerDay } =
+        useFinanceSettingsStore(state => state);
 
     const [fields, setFields] = useState<UserState>({
         currency: 'EUR',
         locale: 'en',
+        moneyPerDay: 0,
     });
 
     useEffect(() => {
@@ -22,6 +22,7 @@ export const MainSettings: FC = () => {
             setFields({
                 currency: user.currency,
                 locale: user.locale,
+                moneyPerDay: user.moneyPerDay,
             });
         }
     }, []);
@@ -35,6 +36,7 @@ export const MainSettings: FC = () => {
     const saveSettings = () => {
         setCurrency(fields.currency);
         setLocale(fields.locale);
+        setMoneyPerDay(fields.moneyPerDay);
     };
 
     return (
@@ -90,6 +92,17 @@ export const MainSettings: FC = () => {
                         </MenuItem>
                     ))}
                 </TextField>
+            </Box>
+            <Box>
+                <TextField
+                    name="moneyPerDay"
+                    label="Money Per Day"
+                    variant="outlined"
+                    size="small"
+                    value={fields.moneyPerDay}
+                    onChange={onChangeHandler}
+                    sx={{ width: '100%' }}
+                />
             </Box>
             <Divider />
             <Box

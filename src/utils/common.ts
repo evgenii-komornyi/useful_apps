@@ -39,6 +39,7 @@ export interface Expense {
 export interface User {
     currency: string;
     locale: string;
+    moneyPerDay: number;
     profit: Profit[];
     expenses: Expense[];
 }
@@ -48,6 +49,7 @@ export interface IFinanceSettingsState {
 
     setCurrency: (newCurrency: string) => void;
     setLocale: (newLocale: string) => void;
+    setMoneyPerDay: (newMoneyPerDay: number) => void;
     setProfit: (newProfit: Profit[]) => void;
     setExpense: (newExpense: Expense[]) => void;
 }
@@ -56,6 +58,7 @@ export interface Budget {
     year: number;
     month: number;
     daysInMonth: number;
+    moneyPerDay: number;
     profit: Profit[];
     expenses: Expense[];
 }
@@ -74,6 +77,7 @@ export interface IBudgetState {
         itemType: 'profit' | 'expenses',
         budgetDate: BudgetDate
     ) => void;
+    updateMoneyPerDay: (newAmount: number, budgetDate: BudgetDate) => void;
     addAdditionalItemToBudget: <T extends Profit | Expense>(
         newItem: T,
         itemType: 'profit' | 'expenses',

@@ -1,40 +1,57 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
-import {Expense, IFinanceSettingsState, Profit, User} from "../../../utils/common.ts";
+import {
+    Expense,
+    IFinanceSettingsState,
+    Profit,
+    User,
+} from '../../../utils/common.ts';
 
 const initialState: User = {
     currency: 'EUR',
     locale: 'en',
+    moneyPerDay: 0,
     profit: [],
-    expenses: []
+    expenses: [],
 };
 
 export const useFinanceSettingsStore = create<IFinanceSettingsState>()(
-    devtools(persist(set => ({
-        user: initialState,
+    devtools(
+        persist(
+            set => ({
+                user: initialState,
 
-        setCurrency: (newCurrency: string)=> {
-            set(state => ({
-                user: {...state.user, currency: newCurrency }
-            }));
-        },
+                setCurrency: (newCurrency: string) => {
+                    set(state => ({
+                        user: { ...state.user, currency: newCurrency },
+                    }));
+                },
 
-        setLocale: (newLocale: string)=> {
-            set(state => ({
-                user: {...state.user, locale: newLocale }
-            }));
-        },
+                setLocale: (newLocale: string) => {
+                    set(state => ({
+                        user: { ...state.user, locale: newLocale },
+                    }));
+                },
 
-        setProfit: (newProfit: Profit[]) => {
-            set(state => ({
-                user: {...state.user, profit: newProfit }
-            }));
-        },
+                setMoneyPerDay: (newMoneyPerDay: number): void => {
+                    set(state => ({
+                        user: { ...state.user, moneyPerDay: newMoneyPerDay },
+                    }));
+                },
 
-        setExpense: (newExpense: Expense[]) => {
-            set(state => ({
-                user: {...state.user, expenses: newExpense}
-            }));
-        }
-    }), {name: "userFinanceSettings"}))
+                setProfit: (newProfit: Profit[]) => {
+                    set(state => ({
+                        user: { ...state.user, profit: newProfit },
+                    }));
+                },
+
+                setExpense: (newExpense: Expense[]) => {
+                    set(state => ({
+                        user: { ...state.user, expenses: newExpense },
+                    }));
+                },
+            }),
+            { name: 'userFinanceSettings' }
+        )
+    )
 );

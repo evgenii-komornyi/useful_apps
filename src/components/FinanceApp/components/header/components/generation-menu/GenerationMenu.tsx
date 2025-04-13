@@ -51,6 +51,8 @@ export const GenerationMenu = (): ReactElement => {
                     month,
                     year,
                     daysInMonth: getDaysInMonth(year, month),
+                    moneyPerDay:
+                        user && user.moneyPerDay ? user.moneyPerDay : 0,
                     profit: user && user.profit ? user.profit : [],
                     expenses: user && user.expenses ? user.expenses : [],
                 };

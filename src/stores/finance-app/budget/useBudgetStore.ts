@@ -12,6 +12,7 @@ import { getCurrentMonth } from '../../../utils/checkers/date.ts';
 import {
     updateBudgetItems,
     updateItemAmount,
+    updateMoneyPerDayAmount,
 } from '../../../utils/arrays/arrays.ts';
 
 export const useBudgetStore = create<IBudgetState>()(
@@ -50,6 +51,18 @@ export const useBudgetStore = create<IBudgetState>()(
                         get().budget,
                         itemId,
                         itemType,
+                        newAmount,
+                        budgetDate
+                    );
+                    set({ budget: updatedBudgets });
+                },
+
+                updateMoneyPerDay: (
+                    newAmount: number,
+                    budgetDate: BudgetDate
+                ): void => {
+                    const updatedBudgets = updateMoneyPerDayAmount(
+                        get().budget,
                         newAmount,
                         budgetDate
                     );
