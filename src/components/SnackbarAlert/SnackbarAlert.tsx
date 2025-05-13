@@ -5,6 +5,8 @@ import {
     IconButton,
     Snackbar,
     SnackbarCloseReason,
+    useMediaQuery,
+    useTheme,
 } from '@mui/material';
 import { useSnackbarStore } from '../../stores/common/snackbar/useSnackbarStore.ts';
 import { Close } from '@mui/icons-material';
@@ -45,7 +47,8 @@ export const SnackbarAlert: FC<Props> = ({
     type,
 }) => {
     const { setIsOpened, isOpened } = useSnackbarStore(state => state);
-
+    const theme = useTheme();
+    const matches = useMediaQuery(theme.breakpoints.up('md'));
     const handleClose = (
         _: SyntheticEvent | Event,
         reason?: SnackbarCloseReason
@@ -59,14 +62,18 @@ export const SnackbarAlert: FC<Props> = ({
     return (
         <Snackbar
             open={isOpened[type]}
-            anchorOrigin={position}
+            anchorOrigin={
+                matches
+                    ? position
+                    : { vertical: 'bottom', horizontal: 'center' }
+            }
             {...(autoHideDuration !== undefined ? { autoHideDuration } : {})}
             onClose={handleClose}
         >
             <Alert
                 onClose={handleClose}
                 severity={severity}
-                variant={variant}
+                variant={matches ? variant : 'filled'}
                 sx={{ width: '100%' }}
                 action={
                     hasAction && (

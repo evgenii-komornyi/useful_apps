@@ -1,10 +1,10 @@
-import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ReactNode } from 'react';
 
 export interface IApplication {
     id: string;
     title: string;
     link: string;
-    icon: IconDefinition;
+    icon: ReactNode;
 }
 
 export enum ProfitExpenseType {

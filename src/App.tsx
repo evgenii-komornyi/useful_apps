@@ -6,6 +6,7 @@ import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { FC } from 'react';
 import { Header } from './components/FinanceApp/components/header/Header.tsx';
+import { Footer } from './components/FinanceApp/components/footer/Footer.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -31,8 +32,8 @@ export const App: FC = () => {
                     <Main>
                         <Outlet />
                     </Main>
-                    {/*<Footer />*/}
                 </Wrapper>
+                <Footer />
             </ThemeProvider>
         </LocalizationProvider>
     );

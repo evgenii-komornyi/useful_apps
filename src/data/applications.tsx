@@ -1,12 +1,12 @@
-import {IApplication} from "../utils/common.ts";
-import {faWallet} from "@fortawesome/free-solid-svg-icons";
+import { BalanceOutlined } from '@mui/icons-material';
+import { IApplication } from '../utils/common.ts';
 
 export const applications: IApplication[] = [
     {
         id: 'finance_app-1',
         title: 'Finance App',
         link: 'finance',
-        icon: faWallet,
+        icon: <BalanceOutlined />,
     },
     // {
     //     id: 'piggy_bank_app-2',
@@ -20,4 +20,4 @@ export const applications: IApplication[] = [
     //     link: 'lastfm',
     //     icon: faLastfm,
     // },
-]
+];

@@ -9,6 +9,7 @@ import { Budget, ProfitExpenseType } from '../../../../../../utils/common.ts';
 import { SnackbarAlert } from '../../../../../SnackbarAlert';
 import { useSnackbarStore } from '../../../../../../stores/common/snackbar/useSnackbarStore.ts';
 import { useFinanceSettingsStore } from '../../../../../../stores/finance-app/settings/useSettingsStore.ts';
+import { CalendarMonthOutlined } from '@mui/icons-material';
 
 const GENERATION_OPTIONS: number[] = [1, 3, 6, 12];
 
@@ -113,15 +114,14 @@ export const GenerationMenu = (): ReactElement => {
     return (
         <>
             <Tooltip title="Generate Budget">
-                <AnimatedContainer onClick={handleClick}>
-                    <IconButton
-                        aria-controls={open ? 'account-menu' : undefined}
-                        aria-haspopup="true"
-                        aria-expanded={open ? 'true' : undefined}
-                    >
-                        <Icon icon={faCalendarDays} />
-                    </IconButton>
-                </AnimatedContainer>
+                <IconButton
+                    aria-controls={open ? 'account-menu' : undefined}
+                    aria-haspopup="true"
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleClick}
+                >
+                    <CalendarMonthOutlined />
+                </IconButton>
             </Tooltip>
             <Menu
                 anchorEl={anchorEl}

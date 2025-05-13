@@ -1,22 +1,13 @@
-import { FC, useState } from 'react';
+import { FC } from 'react';
 import { CurrentDateTime } from './components/current-date-time';
 
-import {
-    Container,
-    AppBar,
-    Toolbar as MUIToolbar,
-    IconButton,
-    Drawer,
-} from '@mui/material';
-import { Menu } from '@mui/icons-material';
-import { Navigation } from './components/navigation';
+import { Container, AppBar, Toolbar as MUIToolbar } from '@mui/material';
+import { GenerationMenu } from './components/generation-menu';
+import { Toolbar } from '../finance-cards/components/BudgetItem/components/Expenses/components/Toolbar';
+import { useTitleStore } from '../../../../stores/common/title/useTitleStore';
 
 export const Header: FC = () => {
-    const [open, setOpen] = useState(false);
-
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
+    const { title } = useTitleStore(state => state);
 
     return (
         <AppBar position="static">
@@ -29,12 +20,12 @@ export const Header: FC = () => {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <IconButton onClick={toggleDrawer(true)}>
-                        <Menu />
-                    </IconButton>
-                    <Drawer open={open} onClose={toggleDrawer(false)}>
-                        <Navigation toggleDrawer={toggleDrawer(false)} />
-                    </Drawer>
+                    {!['Main'].includes(title) && (
+                        <>
+                            <GenerationMenu />
+                            <Toolbar />
+                        </>
+                    )}
                     <CurrentDateTime />
                 </MUIToolbar>
             </Container>

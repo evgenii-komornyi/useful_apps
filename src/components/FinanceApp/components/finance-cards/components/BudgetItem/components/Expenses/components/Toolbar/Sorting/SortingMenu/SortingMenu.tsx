@@ -119,7 +119,7 @@ export const SortingMenu: FC<ToolbarProps> = ({ idx }) => {
         );
     };
 
-    const iconSize: IconSize = idx === undefined ? 'large' : 'small';
+    const iconSize: IconSize = idx === undefined ? 'medium' : 'small';
 
     return (
         <>
