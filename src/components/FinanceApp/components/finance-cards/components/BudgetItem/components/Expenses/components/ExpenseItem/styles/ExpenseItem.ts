@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const ExpenseItemContainer = styled.div`
     display: flex;
@@ -7,11 +7,11 @@ export const ExpenseItemContainer = styled.div`
     align-items: center;
     padding: 2px;
     margin: 1px 0;
-`
+`;
 
 export const ExpenseItemCurrencyContainer = styled.div`
     position: relative;
     padding: 1px;
     display: flex;
     flex-direction: row;
-`
+`;

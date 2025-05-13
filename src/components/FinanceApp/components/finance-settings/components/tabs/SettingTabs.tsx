@@ -33,7 +33,9 @@ export const SettingTabs: FC = () => {
                     onChange={handleChange}
                     indicatorColor="secondary"
                     textColor="inherit"
-                    variant="fullWidth"
+                    variant="scrollable"
+                    scrollButtons="auto"
+                    allowScrollButtonsMobile
                     aria-label="profit and expenses tabs"
                 >
                     <Tab label="Main" {...a11yProps(0)} />

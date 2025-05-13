@@ -32,3 +32,41 @@ export const StyledButton = styled(IconButton)<{
         opacity: 0.1;
     }
 `;
+
+export const ToolbarContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+`;
+
+export const ControlContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+`;
+
+export const ItemDetailsContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    padding: 10px 5px;
+    transition: all 0.5s ease-in;
+
+    &:not(:first-child) {
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &:not(:last-child) {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    &:hover:not(:first-child) {
+        border-top: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    &:hover:not(:last-child) {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.8);
+    }
+`;

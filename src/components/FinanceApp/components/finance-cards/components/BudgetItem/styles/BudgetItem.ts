@@ -1,5 +1,6 @@
 import styled, { css, RuleSet } from 'styled-components';
 import { colorBySeason } from '../../../../../../../utils/checkers/date.ts';
+import { Typography } from '@mui/material';
 
 const checkIsToday = (isActive: boolean, month: number): RuleSet => {
     return isActive
@@ -84,4 +85,33 @@ export const CardContentWrapper = styled.div`
     & .MuiDivider-root {
         width: 100%;
     }
+`;
+
+export const MobileCardWrapper = styled.div<{ $month: number }>`
+    position: relative;
+    margin-bottom: 1.1rem;
+    padding: 1rem;
+    box-shadow: 0 0 5px 1px rgba(${props => colorBySeason(props.$month)}, 0.7);
+`;
+
+export const MobileCardDateTitle = styled(Typography)`
+    padding: 5px;
+    white-space: pre-line;
+    text-transform: uppercase;
+    text-align: center;
+    && {
+        font-size: 0.8rem;
+    }
+`;
+
+export const MobileCardContainer = styled.div<{
+    $isActive: boolean;
+    $month: number;
+}>`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    ${props => checkIsToday(props.$isActive, props.$month)}
 `;

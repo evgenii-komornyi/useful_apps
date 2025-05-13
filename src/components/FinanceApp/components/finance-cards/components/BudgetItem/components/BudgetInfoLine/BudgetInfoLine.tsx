@@ -4,6 +4,7 @@ import {
     BudgetDate,
     Direction,
     Justify,
+    ProfitExpenseType,
 } from '../../../../../../../../utils/common.ts';
 import { FC, useState } from 'react';
 import { formatDateByLocale } from '../../../../../../../../utils/formatters/dates.ts';
@@ -24,6 +25,7 @@ interface Props {
     amount: number;
     editable?: boolean;
     type: string;
+    isDetails?: boolean;
 }
 
 export const BudgetInfoLine: FC<Props> = ({
@@ -33,6 +35,7 @@ export const BudgetInfoLine: FC<Props> = ({
     date,
     amount,
     type,
+    isDetails,
     editable = false,
 }) => {
     const { user } = useFinanceSettingsStore(state => state);
@@ -43,7 +46,7 @@ export const BudgetInfoLine: FC<Props> = ({
         setIsFieldHide(prev => !prev);
     };
 
-    return (
+    return !isDetails ? (
         <BoxContainer
             $justifyContent={Justify.SpaceBetween}
             $alignItems={Align.Center}
@@ -122,6 +125,92 @@ export const BudgetInfoLine: FC<Props> = ({
                     />
                 )}
             </MainBoxContainer>
+        </BoxContainer>
+    ) : (
+        <BoxContainer
+            $justifyContent={Justify.Center}
+            $alignItems={Align.Center}
+            $direction={Direction.Column}
+            sx={{ width: '100%', borderBottom: 0 }}
+        >
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    width: '100%',
+                }}
+            >
+                <Chip label={title} variant="outlined" size="small" />
+                {isFieldHide ? (
+                    editable ? (
+                        <Chip
+                            variant="outlined"
+                            icon={<ChangeCircleOutlined />}
+                            size="small"
+                            label={formatCurrencyByLocation(
+                                user.locale,
+                                user.currency,
+                                amount
+                            )}
+                            onClick={toggleFieldVisibility}
+                        />
+                    ) : (
+                        <Chip
+                            variant="outlined"
+                            size="small"
+                            label={formatCurrencyByLocation(
+                                user.locale,
+                                user.currency,
+                                amount
+                            )}
+                        />
+                    )
+                ) : (
+                    <Field
+                        id={id}
+                        currentAmount={amount}
+                        paymentDay={day}
+                        budgetDate={date}
+                        type={type}
+                        hideField={() => setIsFieldHide(true)}
+                    />
+                )}
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    mt: 2,
+                    mb: 2,
+                    width: '100%',
+                }}
+            >
+                <Chip
+                    label={
+                        isPaymentDay(day, date.month, date.year)
+                            ? type === ProfitExpenseType.Profit
+                                ? 'Received'
+                                : 'Paid'
+                            : 'Awaiting...'
+                    }
+                    size="small"
+                    color={
+                        isPaymentDay(day, date.month, date.year)
+                            ? 'success'
+                            : 'warning'
+                    }
+                    variant="outlined"
+                />
+                <Chip
+                    label={`${day} ${formatDateByLocale(
+                        user.locale,
+                        new Date(date.year, date.month)
+                    ).replace(`${date.year}`, '')}`}
+                    size="small"
+                />
+            </Box>
         </BoxContainer>
     );
 };

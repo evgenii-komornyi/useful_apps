@@ -10,7 +10,7 @@ import {
     ExpenseItemCurrencyContainer,
 } from './styles/ExpenseItem.ts';
 
-interface Props {
+export interface Props {
     expenseItem: Expense;
     date: BudgetDate;
 }
