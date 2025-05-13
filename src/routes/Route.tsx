@@ -3,6 +3,8 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 
 import { Main } from '../pages/main';
 import { Finance } from '../pages/finance';
+import { FinanceSettings } from '../pages/finance-settings';
+import { BudgetDetails } from '../pages/budget-details/BudgetDetails';
 
 interface IRoute {
     path: string;
@@ -12,6 +14,8 @@ interface IRoute {
 const mainRoutes: IRoute[] = [
     { path: '/', page: <Main /> },
     { path: '/finance', page: <Finance /> },
+    { path: '/finance/settings', page: <FinanceSettings /> },
+    { path: '/finance/budget/:year/:month', page: <BudgetDetails /> },
     { path: '*', page: <Navigate to="/" /> },
 ];
 

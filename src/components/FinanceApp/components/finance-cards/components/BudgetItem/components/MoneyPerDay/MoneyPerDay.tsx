@@ -1,4 +1,4 @@
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+import { Box, Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import { formatCurrencyByLocation } from '../../../../../../../../utils/formatters/currency';
 import { Budget, BudgetDate } from '../../../../../../../../utils/common';
 import { FC, useState } from 'react';
@@ -15,9 +15,14 @@ import { isFuture } from '../../../../../../../../utils/checkers/date';
 interface Props {
     budgetItem: Budget;
     budgetDate: BudgetDate;
+    isDetails?: boolean;
 }
 
-export const MoneyPerDay: FC<Props> = ({ budgetItem, budgetDate }) => {
+export const MoneyPerDay: FC<Props> = ({
+    budgetItem,
+    budgetDate,
+    isDetails,
+}) => {
     const { user } = useFinanceSettingsStore(state => state);
 
     const calculatedMoneyPerDay: number = isFuture(
@@ -62,7 +67,7 @@ export const MoneyPerDay: FC<Props> = ({ budgetItem, budgetDate }) => {
         budgetItem.moneyPerDay
     );
 
-    return (
+    return !isDetails ? (
         <Box
             sx={{
                 position: 'absolute',
@@ -83,6 +88,40 @@ export const MoneyPerDay: FC<Props> = ({ budgetItem, budgetDate }) => {
                     {availableMoney}/
                     {!budgetItem.moneyPerDay ? '-.--' : dailyLimit}
                 </Typography>
+            ) : (
+                <Field
+                    currentAmount={budgetItem.moneyPerDay}
+                    budgetDate={budgetDate}
+                    hideField={() => setIsFieldHide(true)}
+                />
+            )}
+        </Box>
+    ) : (
+        <Box
+            sx={{
+                display: 'flex',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+            }}
+        >
+            <Chip label="Per day" variant="outlined" size="small" />
+            {isFieldHide ? (
+                <Chip
+                    label={`${availableMoney}/
+                    ${!budgetItem.moneyPerDay ? '-.--' : dailyLimit}`}
+                    variant="outlined"
+                    icon={<ChangeCircleOutlined />}
+                    size="small"
+                    color={`${
+                        isNotEnoughMoney(
+                            budgetItem.moneyPerDay,
+                            calculatedMoneyPerDay
+                        )
+                            ? 'error'
+                            : 'default'
+                    }`}
+                    onClick={toggleFieldVisibility}
+                />
             ) : (
                 <Field
                     currentAmount={budgetItem.moneyPerDay}

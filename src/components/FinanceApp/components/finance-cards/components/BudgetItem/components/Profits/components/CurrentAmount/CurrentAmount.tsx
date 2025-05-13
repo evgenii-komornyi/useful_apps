@@ -1,6 +1,6 @@
 import { FC, useState } from 'react';
 import { useFinanceSettingsStore } from '../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
-import { IconButton, Tooltip, Typography } from '@mui/material';
+import { Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import { formatCurrencyByLocation } from '../../../../../../../../../../utils/formatters/currency';
 import { ChangeCircleOutlined } from '@mui/icons-material';
 import { CurrentAmountField } from './components/CurrentAmountField';
@@ -20,6 +20,7 @@ interface Props {
     budgetDate: BudgetDate;
     profit: Profit[];
     expenses: Expense[];
+    isDetails?: boolean;
 }
 
 export const CurrentAmount: FC<Props> = ({
@@ -27,6 +28,7 @@ export const CurrentAmount: FC<Props> = ({
     budgetDate,
     profit,
     expenses,
+    isDetails = false,
 }) => {
     const { user } = useFinanceSettingsStore(state => state);
 
@@ -42,13 +44,17 @@ export const CurrentAmount: FC<Props> = ({
             $alignItems={Align.Center}
             $justifyContent={Justify.SpaceBetween}
         >
-            <Typography variant="body1">Current</Typography>
+            {!isDetails ? (
+                <Typography variant="body1">Current</Typography>
+            ) : (
+                <Chip variant="outlined" size="small" label="Current" />
+            )}
             <MainBoxContainer
                 $direction={Direction.Row}
                 $alignItems={Align.Center}
                 $justifyContent={Justify.SpaceBetween}
             >
-                {isToday(budgetDate.month, budgetDate.year) && (
+                {isToday(budgetDate.month, budgetDate.year) && !isDetails && (
                     <Tooltip title="Add corrections" placement="bottom">
                         <IconButton onClick={toggleFieldVisibility}>
                             <ChangeCircleOutlined />
@@ -56,13 +62,27 @@ export const CurrentAmount: FC<Props> = ({
                     </Tooltip>
                 )}
                 {isFieldHide ? (
-                    <Typography variant="body1">
-                        {formatCurrencyByLocation(
-                            user.locale,
-                            user.currency,
-                            currentAmount
-                        )}
-                    </Typography>
+                    isDetails ? (
+                        <Chip
+                            variant="outlined"
+                            icon={<ChangeCircleOutlined />}
+                            size="small"
+                            label={formatCurrencyByLocation(
+                                user.locale,
+                                user.currency,
+                                currentAmount
+                            )}
+                            onClick={toggleFieldVisibility}
+                        />
+                    ) : (
+                        <Typography variant="body1">
+                            {formatCurrencyByLocation(
+                                user.locale,
+                                user.currency,
+                                currentAmount
+                            )}
+                        </Typography>
+                    )
                 ) : (
                     <CurrentAmountField
                         currentAmount={currentAmount}

@@ -10,22 +10,25 @@ import {
 } from './styles/ProfitItem.ts';
 import { BudgetInfoLine } from '../../../BudgetInfoLine';
 
-interface Props {
+export interface Props {
     profitItem: Profit;
     date: BudgetDate;
 }
 
-export const ProfitItem: FC<Props> = ({ profitItem, date }) => {
+export const ProfitItem: FC<Props> = ({
+    profitItem: { id, profitDay, title, amount, editable },
+    date,
+}) => {
     return (
         <ProfitItemContainer>
             <ProfitItemCurrencyContainer>
                 <BudgetInfoLine
-                    id={profitItem.id}
-                    day={profitItem.profitDay}
-                    title={profitItem.title}
+                    id={id}
+                    day={profitDay}
+                    title={title}
                     date={date}
-                    amount={+profitItem.amount}
-                    editable={profitItem.editable}
+                    amount={+amount}
+                    editable={editable}
                     type={ProfitExpenseType.Profit}
                 />
             </ProfitItemCurrencyContainer>

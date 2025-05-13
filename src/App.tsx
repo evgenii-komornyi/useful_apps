@@ -5,6 +5,7 @@ import { GlobalStyle, Main, Wrapper } from './styles/Global.ts';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { FC } from 'react';
+import { Header } from './components/FinanceApp/components/header/Header.tsx';
 
 const darkTheme = createTheme({
     palette: {
@@ -24,6 +25,7 @@ export const App: FC = () => {
             <ThemeProvider theme={darkTheme}>
                 <GlobalStyle />
                 <CssBaseline />
+                <Header />
                 <Wrapper>
                     <MainRoutes />
                     <Main>
