@@ -1,7 +1,6 @@
 import {
     Box,
     Collapse,
-    Divider,
     IconButton,
     List,
     ListItem,
@@ -9,7 +8,7 @@ import {
     ListItemIcon,
     ListItemText,
 } from '@mui/material';
-import { FC, MouseEvent, MouseEventHandler, ReactNode, useState } from 'react';
+import { FC, MouseEvent, ReactNode, useState } from 'react';
 import { MenuLink } from '../../styles/Header';
 import {
     BalanceOutlined,
