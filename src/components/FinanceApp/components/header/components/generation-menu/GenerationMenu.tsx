@@ -1,9 +1,6 @@
 import { ReactElement, useEffect, useState } from 'react';
 import { Divider, IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
-import { Icon } from '../../../../../Icon';
-import { faCalendarDays } from '@fortawesome/free-regular-svg-icons';
 import { useAnchor } from '../../../../../../hooks/common/useAnchor.ts';
-import { AnimatedContainer } from '../settings/styles/SettingsButton.ts';
 import { useBudgetStore } from '../../../../../../stores/finance-app/budget/useBudgetStore.ts';
 import { Budget, ProfitExpenseType } from '../../../../../../utils/common.ts';
 import { SnackbarAlert } from '../../../../../SnackbarAlert';

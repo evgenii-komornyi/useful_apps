@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {Box} from "@mui/material";
+import styled from 'styled-components';
+import { Box } from '@mui/material';
 
 export const AnimatedIconContainer = styled.span`
     position: relative;
@@ -29,7 +29,7 @@ export const AnimatedIconContainer = styled.span`
 
 export const ApplicationBoxContainer = styled(Box)`
     && {
-        min-width: 300px;
+        min-width: 250px;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -38,7 +38,8 @@ export const ApplicationBoxContainer = styled(Box)`
         padding: 40px 20px;
         border-radius: 20px;
         border: 1px solid floralwhite;
-        transition: color 0.5s ease-in-out, box-shadow 0.3s ease, margin-bottom 0.3s ease-in-out;
+        transition: color 0.5s ease-in-out, box-shadow 0.3s ease,
+            margin-bottom 0.3s ease-in-out;
 
         &:hover {
             box-shadow: 0 10px 20px rgba(187, 234, 116, 0.6);
@@ -55,4 +56,4 @@ export const ApplicationBoxContainer = styled(Box)`
 export const ApplicationTitle = styled.h3`
     letter-spacing: 3px;
     text-transform: uppercase;
-`
+`;
