@@ -22,7 +22,7 @@ export const ExpenseSelector: FC<Props> = ({
                 const checkboxId = `checkbox-${key}`;
 
                 return (
-                    <Grid key={key} item size={{ xs: 6, sm: 4, md: 3, lg: 2 }}>
+                    <Grid key={key} size={{ xs: 6, sm: 4, md: 3, lg: 2 }}>
                         <FormControlLabel
                             control={
                                 <Checkbox
