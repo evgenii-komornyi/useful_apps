@@ -1,19 +1,18 @@
 import { Container } from '@mui/material';
-
-import { Details } from '../../components/FinanceApp/components/finance-cards/components/BudgetDetails';
 import { FC, useEffect } from 'react';
 import { useTitleStore } from '../../stores/common/title/useTitleStore';
+import { Visualization } from '../../components/FinanceApp/components/visualization';
 
-export const BudgetDetails: FC = () => {
+export const DataVisualization: FC = () => {
     const setTitle = useTitleStore(state => state.setTitle);
 
     useEffect(() => {
-        setTitle('BudgetDetails');
+        setTitle('DataVisualization');
     }, [setTitle]);
 
     return (
         <Container maxWidth="xl" sx={{ mt: 2 }}>
-            <Details />
+            <Visualization />
         </Container>
     );
 };

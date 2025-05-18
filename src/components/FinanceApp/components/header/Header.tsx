@@ -40,7 +40,9 @@ export const Header: FC = () => {
                             }}
                         >
                             <GenerationMenu />
-                            <Toolbar />
+                            {['Finance', 'BudgetDetails'].includes(title) && (
+                                <Toolbar />
+                            )}
                         </Box>
                     )}
                     <CurrentDateTime />

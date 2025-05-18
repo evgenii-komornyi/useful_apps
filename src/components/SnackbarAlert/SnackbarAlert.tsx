@@ -77,7 +77,14 @@ export const SnackbarAlert: FC<Props> = ({
                 sx={{ width: '100%' }}
                 action={
                     hasAction && (
-                        <>
+                        <div
+                            style={{
+                                display: 'flex',
+                                flexDirection: matches ? 'row' : 'column',
+                                justifyContent: 'space-between',
+                                height: 150,
+                            }}
+                        >
                             {hasConfirm && (
                                 <Button
                                     color="secondary"
@@ -129,7 +136,7 @@ export const SnackbarAlert: FC<Props> = ({
                             >
                                 <Close />
                             </IconButton>
-                        </>
+                        </div>
                     )
                 }
             >

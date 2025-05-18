@@ -1,6 +1,7 @@
 import {
     ArrowBackIosOutlined,
     BalanceOutlined,
+    QueryStatsOutlined,
     SettingsOutlined,
     WidgetsOutlined,
 } from '@mui/icons-material';
@@ -58,7 +59,22 @@ export const Footer = () => {
                         to={route}
                     />
                 ))}
-                {['Finance', 'BudgetDetails'].includes(title) && (
+                {[
+                    'Finance',
+                    'BudgetDetails',
+                    'DataVisualization',
+                    'FinanceSettings',
+                ].includes(title) && (
+                    <BottomNavigationAction
+                        label="Visualization"
+                        icon={<QueryStatsOutlined />}
+                        component={Link}
+                        to="/finance/visualization"
+                    />
+                )}
+                {['Finance', 'BudgetDetails', 'DataVisualization'].includes(
+                    title
+                ) && (
                     <BottomNavigationAction
                         label="Settings"
                         icon={<SettingsOutlined />}

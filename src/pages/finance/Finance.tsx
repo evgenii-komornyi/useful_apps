@@ -9,6 +9,7 @@ export const Finance: FC = () => {
     useEffect(() => {
         setTitle('Finance');
     }, [setTitle]);
+
     return (
         <Container maxWidth="xl" sx={{ mt: 2 }}>
             <FinanceApp />
