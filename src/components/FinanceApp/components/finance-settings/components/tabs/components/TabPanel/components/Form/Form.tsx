@@ -26,6 +26,7 @@ interface Props {
         event?: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     toggleEditable: (id: string, e: ChangeEvent<HTMLInputElement>) => void;
+    toggleVisualize: (id: string, e: ChangeEvent<HTMLInputElement>) => void;
     handleRemoveBox: (id: string) => void;
     pendingRemoveId: string | null;
     removeFieldGroupById: (id: string) => void;
@@ -36,6 +37,7 @@ export const Form: FC<Props> = ({
     field,
     onChangeHandler,
     toggleEditable,
+    toggleVisualize,
     handleRemoveBox,
     pendingRemoveId,
     removeFieldGroupById,
@@ -135,6 +137,19 @@ export const Form: FC<Props> = ({
                         />
                     }
                     label={`${field.editable ? 'Editable' : 'Read-only'}`}
+                />
+                <FormControlLabel
+                    control={
+                        <Switch
+                            checked={field.visualize || false}
+                            onChange={e => toggleVisualize(field.id, e)}
+                            color="success"
+                            inputProps={{
+                                'aria-label': 'visualize',
+                            }}
+                        />
+                    }
+                    label="Show on chart"
                 />
             </FieldContainer>
             <Button

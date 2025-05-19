@@ -69,6 +69,7 @@ export const CurrentAmountField: FC<Props> = ({
                     title: 'Unknown',
                     amount: Math.abs(resultingCorrection).toFixed(2),
                     editable: unknownExpense?.editable || false,
+                    visualize: unknownExpense?.visualize || false,
                     type: ProfitExpenseType.Expenses,
                     expenseDay: date.getDate(),
                 };
@@ -92,6 +93,7 @@ export const CurrentAmountField: FC<Props> = ({
                     title: 'Saving',
                     amount: resultingCorrection.toFixed(2),
                     editable: savingProfit?.editable || false,
+                    visualize: savingProfit?.visualize || false,
                     type: ProfitExpenseType.Profit,
                     profitDay: date.getDate(),
                 };

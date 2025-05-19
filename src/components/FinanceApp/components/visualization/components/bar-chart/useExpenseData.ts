@@ -45,17 +45,19 @@ export const useExpenseData = (
             )[0];
             const entry = dataMap.get(monthLabel) || { month: monthLabel };
 
-            item.expenses.forEach(exp => {
-                const key = exp.title.toLowerCase().replace(/\s+/g, '_');
-                const rawAmount =
-                    typeof exp.amount === 'string'
-                        ? parseFloat(exp.amount.replace(',', '.'))
-                        : +exp.amount;
+            item.expenses
+                .filter(item => item.visualize)
+                .forEach(exp => {
+                    const key = exp.title.toLowerCase().replace(/\s+/g, '_');
+                    const rawAmount =
+                        typeof exp.amount === 'string'
+                            ? parseFloat(exp.amount.replace(',', '.'))
+                            : +exp.amount;
 
-                entry[key] =
-                    !isNaN(rawAmount) && rawAmount > 0 ? rawAmount : null;
-                expenseKeySet.add(key);
-            });
+                    entry[key] =
+                        !isNaN(rawAmount) && rawAmount > 0 ? rawAmount : null;
+                    expenseKeySet.add(key);
+                });
 
             dataMap.set(monthLabel, entry);
         });

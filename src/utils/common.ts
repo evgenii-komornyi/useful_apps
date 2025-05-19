@@ -20,6 +20,7 @@ export interface Profit {
     amount: string;
     profitDay: number;
     editable: boolean;
+    visualize: boolean;
     validFrom?: string;
     validUntil?: string;
     type: ProfitExpenseType;
@@ -31,6 +32,7 @@ export interface Expense {
     amount: string;
     expenseDay: number;
     editable: boolean;
+    visualize: boolean;
     validFrom?: string;
     validUntil?: string;
     type: ProfitExpenseType;

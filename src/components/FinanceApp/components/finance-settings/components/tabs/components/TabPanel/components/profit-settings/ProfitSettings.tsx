@@ -30,6 +30,7 @@ export const ProfitSettings: FC = () => {
                 amount: '',
                 profitDay: 1,
                 editable: false,
+                visualize: true,
                 type: ProfitExpenseType.Configurable,
             },
         ]);
@@ -73,6 +74,19 @@ export const ProfitSettings: FC = () => {
                 if (profitField.id !== id) return profitField;
 
                 return { ...profitField, editable: target.checked };
+            })
+        );
+    };
+
+    const toggleVisualize = (
+        id: string,
+        { target }: ChangeEvent<HTMLInputElement>
+    ): void => {
+        setProfitFields(prevProfitFields =>
+            prevProfitFields.map(profitField => {
+                if (profitField.id !== id) return profitField;
+
+                return { ...profitField, visualize: target.checked };
             })
         );
     };
@@ -143,6 +157,7 @@ export const ProfitSettings: FC = () => {
                                 field={field}
                                 onChangeHandler={onChangeHandler}
                                 toggleEditable={toggleEditable}
+                                toggleVisualize={toggleVisualize}
                                 removeFieldGroupById={removeProfitById}
                                 pendingRemoveId={pendingRemoveId}
                                 handleRemoveBox={handleRemoveBox}

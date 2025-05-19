@@ -29,6 +29,7 @@ export const ExpensesSettings: FC = () => {
                 title: '',
                 amount: '',
                 editable: false,
+                visualize: true,
                 expenseDay: 1,
                 type: ProfitExpenseType.Configurable,
             },
@@ -73,6 +74,19 @@ export const ExpensesSettings: FC = () => {
                 if (expenseField.id !== id) return expenseField;
 
                 return { ...expenseField, editable: target.checked };
+            })
+        );
+    };
+
+    const toggleVisualize = (
+        id: string,
+        { target }: ChangeEvent<HTMLInputElement>
+    ): void => {
+        setExpensesFields(prevExpenseFields =>
+            prevExpenseFields.map(expenseField => {
+                if (expenseField.id !== id) return expenseField;
+
+                return { ...expenseField, visualize: target.checked };
             })
         );
     };
@@ -148,6 +162,7 @@ export const ExpensesSettings: FC = () => {
                                 field={field}
                                 onChangeHandler={onChangeHandler}
                                 toggleEditable={toggleEditable}
+                                toggleVisualize={toggleVisualize}
                                 handleRemoveBox={handleRemoveBox}
                                 pendingRemoveId={pendingRemoveId}
                                 removeFieldGroupById={removeExpenseById}
