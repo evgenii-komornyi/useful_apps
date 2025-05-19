@@ -32,6 +32,7 @@ export const AdditionalItemModal: FC = () => {
                   amount: '',
                   profitDay: 1,
                   editable: false,
+                  visualize: false,
                   type: ProfitExpenseType.Additional,
               }
             : {
@@ -40,6 +41,7 @@ export const AdditionalItemModal: FC = () => {
                   amount: '',
                   expenseDay: 1,
                   editable: false,
+                  visualize: false,
                   type: ProfitExpenseType.Additional,
               };
 
