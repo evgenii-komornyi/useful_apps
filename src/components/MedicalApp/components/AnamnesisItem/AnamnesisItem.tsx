@@ -49,7 +49,7 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                 <CardContent>
                     <Grid container textAlign="center" spacing={2}>
                         {symptoms.length > 0 ? symptoms.map((symptom, index) => (
-                            <Grid key={index} size={{sm: 4}} spacing={2}>
+                            <Grid key={index} size={{sm: 4, xs: 12}} spacing={2}>
                                 <SymptomItem symptom={symptom} />
                             </Grid>
                         )) : (
