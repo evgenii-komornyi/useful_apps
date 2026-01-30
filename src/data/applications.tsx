@@ -1,4 +1,4 @@
-import { BalanceOutlined } from '@mui/icons-material';
+import { BalanceOutlined, MedicalInformationOutlined } from '@mui/icons-material';
 import { IApplication } from '../utils/common.ts';
 
 export const applications: IApplication[] = [
@@ -8,16 +8,10 @@ export const applications: IApplication[] = [
         link: 'finance',
         icon: <BalanceOutlined />,
     },
-    // {
-    //     id: 'piggy_bank_app-2',
-    //     title: 'Piggy Bank App',
-    //     link: 'piggy_bank',
-    //     icon: faPiggyBank,
-    // },
-    // {
-    //     id: 'lastfm_app-3',
-    //     title: 'LastFM App',
-    //     link: 'lastfm',
-    //     icon: faLastfm,
-    // },
+    {
+        id: 'medical_app-2',
+        title: 'Medical App',
+        link: 'medical',
+        icon: <MedicalInformationOutlined />,
+    },
 ];

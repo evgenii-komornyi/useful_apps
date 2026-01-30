@@ -29,7 +29,7 @@ import { Budget, BudgetDate } from '../../../../../../utils/common.ts';
 import { useFinanceSettingsStore } from '../../../../../../stores/finance-app/settings/useSettingsStore.ts';
 import { Profits } from './components/Profits';
 import { Expenses } from './components/Expenses';
-import { MoneyPerDay } from './components/MoneyPerDay/MoneyPerDay.tsx';
+import { MoneyPerDay } from './components/MoneyPerDay';
 import { Link } from 'react-router-dom';
 import { DescriptionOutlined } from '@mui/icons-material';
 

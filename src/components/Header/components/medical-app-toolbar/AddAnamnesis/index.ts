@@ -1,0 +1,1 @@
+export {AddAnamnesis} from './AddAnamnnesis'

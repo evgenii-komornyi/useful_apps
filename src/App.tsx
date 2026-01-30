@@ -5,8 +5,8 @@ import { GlobalStyle, Main, Wrapper } from './styles/Global.ts';
 import { createTheme, CssBaseline, ThemeProvider } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { FC } from 'react';
-import { Header } from './components/FinanceApp/components/header/Header.tsx';
-import { Footer } from './components/FinanceApp/components/footer/Footer.tsx';
+import { Header } from './components/Header';
+import { Footer } from './components/Footer';
 
 const darkTheme = createTheme({
     palette: {

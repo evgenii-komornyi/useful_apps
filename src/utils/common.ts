@@ -159,3 +159,39 @@ export interface IFilterState {
 }
 
 export type IconSize = 'small' | 'medium' | 'large';
+
+export interface SymptomDate {
+    year: number;
+    month: number;
+    day: number;
+}
+
+export enum SymptomType {
+    Headache = 'Headache',
+    AcidIndigestion = 'Acid Indigestion',
+}
+
+export interface ISymptom {
+    title: SymptomType;
+    date: SymptomDate;
+    painRate?: 1 | 2 | 3 | 4| 5;
+    food?: string[];
+}
+
+export interface IAnamnesis {
+    id: string;
+    month: number;
+    year: number;
+    symptoms: ISymptom[];
+}
+
+export interface IAnamnesisState {
+    anamnesis: IAnamnesis[];
+
+    setAnamnesis: (newAnamnesis: IAnamnesis[]) => void;
+    addAnamnesis: (newAnamnesis: IAnamnesis) => void;
+    removeAnamnesis: (anamnesisToRemove: string) => void;
+
+    addSymptom: (anamnesisId: string, newSymptom: ISymptom) => void;
+    removeSymptom: (anamnesisId: string, symptomToRemove: ISymptom) => void;
+}

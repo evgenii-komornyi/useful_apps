@@ -1,0 +1,1 @@
+export {NoAnamnesis} from './NoAnamnesis';

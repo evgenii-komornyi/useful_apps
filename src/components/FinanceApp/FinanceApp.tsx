@@ -1,7 +1,6 @@
 import { FC } from 'react';
 import { Grid2 as Grid } from '@mui/material';
 import { FinanceApplicationContentContainer } from './styles/FinanceApp.ts';
-import { FinanceSettings } from './components/finance-settings';
 import { FinanceCards } from './components/finance-cards';
 
 export const FinanceApp: FC = () => {
@@ -10,7 +9,6 @@ export const FinanceApp: FC = () => {
             <Grid size={{ xs: 12 }}>
                 <FinanceCards />
             </Grid>
-            <FinanceSettings />
         </FinanceApplicationContentContainer>
     );
 };

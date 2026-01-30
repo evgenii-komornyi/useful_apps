@@ -1,1 +1,0 @@
-export {GenerationMenu} from './GenerationMenu'
