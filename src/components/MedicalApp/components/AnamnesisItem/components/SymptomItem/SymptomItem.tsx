@@ -17,12 +17,12 @@ export const SymptomItem: FC<Props> = ({ symptom: { date, title, painRate } }) =
             <CardContent>
                 <Stack direction="column" spacing={2} alignItems="center">
                     <Tooltip title="Pain Rate">
-                        <Badge variant="standard" badgeContent={painRate} color={CUSTOM_ICONS[painRate].color} >
+                        <Badge variant="standard" badgeContent={painRate} color={painRate ? CUSTOM_ICONS[painRate].color : 'primary'} >
                             <Chip
-                                label={CUSTOM_ICONS[painRate].label}
+                                label={painRate ? CUSTOM_ICONS[painRate].label : 'No Rating'}
                                 variant="outlined"
-                                color={CUSTOM_ICONS[painRate].color}
-                                icon={CUSTOM_ICONS[painRate].icon}
+                                color={painRate ? CUSTOM_ICONS[painRate].color : 'primary'}
+                                icon={painRate && CUSTOM_ICONS[painRate].icon}
                             />
                         </Badge>
                     </Tooltip>
