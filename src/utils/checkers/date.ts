@@ -7,6 +7,10 @@ export const isToday = (monthToCheck: number, yearToCheck: number): boolean => {
     );
 };
 
+export const isTodayIncludingDay = (day: number, month: number, year: number): boolean => {
+    return isToday(month, year) && day === new Date().getDate();
+}
+
 export const isTodayOrFuture = (month: number, year: number): boolean => {
     const now = new Date();
     const currentMonth = now.getMonth();

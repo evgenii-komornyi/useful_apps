@@ -6,6 +6,7 @@ import { useAnamnesisStore } from '../../../../../../stores/medical-app/anamnesi
 import { styled } from '@mui/material/styles';
 import { CUSTOM_ICONS } from '../../../../../../constants/common.tsx';
 import { IconContainer } from '../PainRate.util.tsx';
+import { isTodayIncludingDay } from '../../../../../../utils/checkers/date.ts';
 
 interface Props {
     anamnesisId: string;
@@ -66,6 +67,12 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
         resetStats();
     }
 
+    const isTodayDisabled = (symptom: SymptomType) =>
+        symptoms.some(s =>
+            isTodayIncludingDay(s.date.day, s.date.month, s.date.year) &&
+            s.title === symptom
+        );
+
     return (
         <CardContent>
             <TextField
@@ -84,11 +91,11 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
                             variant="outlined"
                             label={availableSymptom}
                             color={
-                                !symptoms.some(s => s.title === availableSymptom) &&
+                                !isTodayDisabled(availableSymptom) &&
                                 !symptomsState.some(s => s === availableSymptom) ?
                                     'default' : 'success'
                             }
-                            disabled={symptoms.some(s => s.title === availableSymptom)}
+                            disabled={isTodayDisabled(availableSymptom)}
                             {...(symptomsState.some(s => s === availableSymptom) && {
                                 deleteIcon: <DeleteTwoTone />,
                                 onDelete: () => removeSymptom(availableSymptom)
