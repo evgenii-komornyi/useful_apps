@@ -15,12 +15,12 @@ interface CustomIcon {
 }
 
 export const CUSTOM_ICONS: CustomIcon = {
-    1: {
+    5: {
         icon: <SentimentVeryDissatisfiedOutlined color="error" />,
         label: 'Very Dissatisfied',
         color: "error"
     },
-    2: {
+    4: {
         icon: <SentimentDissatisfied color="error" />,
         label: 'Dissatisfied',
         color: "error"
@@ -30,12 +30,12 @@ export const CUSTOM_ICONS: CustomIcon = {
         label: 'Neutral',
         color: "warning"
     },
-    4: {
+    2: {
         icon: <SentimentSatisfiedAlt color="success" />,
         label: 'Satisfied',
         color: "success"
     },
-    5: {
+    1: {
         icon: <SentimentVerySatisfied color="success" />,
         label: 'Very Satisfied',
         color: "success"

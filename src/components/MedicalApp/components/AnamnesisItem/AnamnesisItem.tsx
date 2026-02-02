@@ -15,6 +15,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendarPlus, faCalendarXmark } from '@fortawesome/free-regular-svg-icons';
 import { AddSymptoms } from './components/AddSymptoms';
 import { SymptomItem } from './components/SymptomItem';
+import { isToday } from '../../../../utils/checkers/date.ts';
+import { AddchartOutlined, QueryStatsOutlined } from '@mui/icons-material';
 
 interface Props {
     anamnesisItem: IAnamnesis
@@ -28,6 +30,10 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
     const handleExpandClick = () => {
         onExpandClick(id);
     };
+
+    const handleGenerateReportClick = () => {
+        alert(`Here be your dragon soon`);
+    }
 
     return (
         <Grid size={{ sm:6, xs:12 }}>
@@ -66,30 +72,48 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                     </Grid>
                 </CardContent>
                 <CardActions disableSpacing>
-                    <Card variant="outlined" sx={{width: '100%'}}>
-                        <CardHeader
-                            avatar={
-                                <Chip color="primary" label={new Date().getDate()} size="small" />
-                            }
-                            title="Add symptom"
-                            subheader={`the symptom will be added for ${formatDateByLocale(
-                                user.locale,
-                                new Date(year, month, new Date().getDate()),
-                                false,
-                                true,
-                                true
-                            )}`}
-                            action={
-                                <IconButton
-                                    aria-label="add symptom"
-                                    aria-expanded={expanded}
-                                    onClick={handleExpandClick}
-                                >
-                                    <FontAwesomeIcon icon={!expanded ? faCalendarPlus : faCalendarXmark} size="sm" />
-                                </IconButton>
-                            }
-                        />
-                    </Card>
+                    {isToday(month, year) && (
+                        <Card variant="outlined" sx={{ width: '100%' }}>
+                            <CardHeader
+                                avatar={
+                                    <Chip color="primary" label={new Date().getDate()} size="small" />
+                                }
+                                title="Add symptom"
+                                subheader={`the symptom will be added for ${formatDateByLocale(
+                                    user.locale,
+                                    new Date(year, month, new Date().getDate()),
+                                    false,
+                                    true,
+                                    true
+                                )}`}
+                                action={
+                                    <IconButton
+                                        aria-label="add symptom"
+                                        aria-expanded={expanded}
+                                        onClick={handleExpandClick}
+                                    >
+                                        <FontAwesomeIcon icon={!expanded ? faCalendarPlus : faCalendarXmark} size="sm" />
+                                    </IconButton>
+                                }
+                            />
+                        </Card>
+                    )}
+                    {!isToday(month, year) && (
+                        <Card variant="outlined" sx={{ width: '100%' }}>
+                            <CardHeader
+                                avatar={<QueryStatsOutlined />}
+                                title="Generate report"
+                                action={
+                                    <IconButton
+                                        aria-label="genegate report"
+                                        onClick={handleGenerateReportClick}
+                                    >
+                                        <AddchartOutlined />
+                                    </IconButton>
+                                }
+                            />
+                        </Card>
+                    )}
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <AddSymptoms anamnesisId={id} symptoms={symptoms} />
