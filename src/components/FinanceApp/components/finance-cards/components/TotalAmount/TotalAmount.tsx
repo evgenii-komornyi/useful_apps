@@ -24,7 +24,7 @@ export const TotalAmount: FC<Props> = ({ array, isDetails = false }) => {
         0
     );
 
-    const isExpense = Object.prototype.hasOwnProperty.call(
+    const isExpense = array.length > 0 && Object.prototype.hasOwnProperty.call(
         array[0],
         'expenseDay'
     );

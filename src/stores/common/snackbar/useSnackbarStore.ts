@@ -16,6 +16,9 @@ export const useSnackbarStore = create<IFinanceSettingsSnackbarState>()(
             profit: false,
             expenses: false,
             changesDetection: false,
+            deleteAnamnesis: false,
+            deleteSymptom: false,
+            import: false,
         },
 
         setIsOpened: (isOpened: boolean, type: string) => {

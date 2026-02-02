@@ -77,7 +77,7 @@ export const GenerationMenu = (): ReactElement => {
             setNewBudgetOrOpenChoiceWindow();
             setHasOpenedAlert(true);
         }
-    }, [generatedBudget, hasOpenedAlert, setNewBudgetOrOpenChoiceWindow]);
+    }, [generatedBudget, hasOpenedAlert]);
 
     const generateBudgetHandler = (monthsCountToGenerate: number) => {
         setSavedMonthsCountToGenerate(monthsCountToGenerate);

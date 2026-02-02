@@ -1,12 +1,12 @@
 import { FC, SyntheticEvent } from 'react';
 import {
-    Alert,
+    Alert, Box,
     Button,
     IconButton,
     Snackbar,
     SnackbarCloseReason,
     useMediaQuery,
-    useTheme,
+    useTheme
 } from '@mui/material';
 import { useSnackbarStore } from '../../stores/common/snackbar/useSnackbarStore.ts';
 import { Close } from '@mui/icons-material';
@@ -35,7 +35,7 @@ interface Props {
 
 export const SnackbarAlert: FC<Props> = ({
     severity = 'success',
-    variant = 'outlined',
+    variant = 'filled',
     position = { vertical: 'top', horizontal: 'center' },
     autoHideDuration = undefined,
     onClick = undefined,
@@ -77,57 +77,62 @@ export const SnackbarAlert: FC<Props> = ({
                 sx={{ width: '100%' }}
                 action={
                     hasAction && (
-                        <div
+                        <Box
                             style={{
                                 display: 'flex',
                                 flexDirection: matches ? 'row' : 'column',
                                 justifyContent: 'space-between',
-                                height: 150,
+                                alignItems: 'center'
                             }}
                         >
-                            {hasConfirm && (
-                                <Button
-                                    color="secondary"
-                                    size="small"
-                                    onClick={onClick}
-                                >
-                                    Confirm
-                                </Button>
-                            )}
-                            {hasAddToExisting && (
-                                <Button
-                                    startIcon={<Icon icon={faCalendarPlus} />}
-                                    sx={{
-                                        color: 'white',
-                                        borderColor: 'white',
-                                        ml: 1,
-                                        mr: 1,
-                                    }}
-                                    id="addToExisting"
-                                    size="small"
-                                    variant="outlined"
-                                    onClick={onClick}
-                                >
-                                    Add to existing
-                                </Button>
-                            )}
-                            {hasReplace && (
-                                <Button
-                                    startIcon={<Icon icon={faCalendarXmark} />}
-                                    size="small"
-                                    variant="outlined"
-                                    id="replace"
-                                    sx={{
-                                        color: 'white',
-                                        borderColor: 'white',
-                                        ml: 1,
-                                        mr: 1,
-                                    }}
-                                    onClick={onClick}
-                                >
-                                    Replace
-                                </Button>
-                            )}
+                            <Box>
+                                {hasConfirm && (
+                                    <Button
+                                        color="secondary"
+                                        variant="contained"
+                                        size="small"
+                                        onClick={onClick}
+                                    >
+                                        Confirm
+                                    </Button>
+                                )}
+                            </Box>
+                            <Box>
+                                {hasAddToExisting && (
+                                    <Button
+                                        startIcon={<Icon icon={faCalendarPlus} color="black" />}
+                                        sx={{
+                                            ml: 1,
+                                            mr: 1,
+                                        }}
+                                        color="success"
+                                        id="addToExisting"
+                                        size="small"
+                                        variant="contained"
+                                        onClick={onClick}
+                                    >
+                                        Add to existing
+                                    </Button>
+                                )}
+                            </Box>
+                            <Box>
+                                {hasReplace && (
+                                    <Button
+                                        startIcon={<Icon icon={faCalendarXmark} color="black" />}
+                                        size="small"
+                                        variant="contained"
+                                        id="replace"
+                                        color="warning"
+                                        sx={{
+                                            ml: 1,
+                                            mr: 1,
+                                        }}
+                                        onClick={onClick}
+                                    >
+                                        Replace
+                                    </Button>
+                                )}
+                            </Box>
                             <IconButton
                                 aria-label="close"
                                 color="inherit"
@@ -136,7 +141,7 @@ export const SnackbarAlert: FC<Props> = ({
                             >
                                 <Close />
                             </IconButton>
-                        </div>
+                        </Box>
                     )
                 }
             >

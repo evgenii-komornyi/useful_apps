@@ -16,7 +16,10 @@ import { faCalendarPlus, faCalendarXmark } from '@fortawesome/free-regular-svg-i
 import { AddSymptoms } from './components/AddSymptoms';
 import { SymptomItem } from './components/SymptomItem';
 import { isToday } from '../../../../utils/checkers/date.ts';
-import { AddchartOutlined, QueryStatsOutlined } from '@mui/icons-material';
+import { AddchartOutlined, DeleteOutline, QueryStatsOutlined } from '@mui/icons-material';
+import { useSnackbarStore } from '../../../../stores/common/snackbar/useSnackbarStore.ts';
+import { SnackbarAlert } from '../../../SnackbarAlert';
+import { useAnamnesisStore } from '../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 
 interface Props {
     anamnesisItem: IAnamnesis
@@ -25,18 +28,29 @@ interface Props {
 }
 
 export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, symptoms }, expanded, onExpandClick }) => {
+    const { setIsOpened } = useSnackbarStore(state => state);
     const { user } = useFinanceSettingsStore(state => state);
+    const { removeAnamnesis } = useAnamnesisStore(state => state);
 
     const handleExpandClick = () => {
         onExpandClick(id);
     };
 
+    const openDeleteAnamnesisAlert = () => {
+        setIsOpened(true, 'deleteAnamnesis');
+    }
+
     const handleGenerateReportClick = () => {
         alert(`Here be your dragon soon`);
     }
 
+    const deleteAnamnesis = () => {
+        removeAnamnesis(id);
+        setIsOpened(false, 'deleteAnamnesis');
+    }
+
     return (
-        <Grid size={{ sm:6, xs:12 }}>
+        <Grid size={{ sm: 6, xs: 12 }}>
             <Card variant="outlined">
                 <CardHeader
                     avatar={
@@ -51,12 +65,20 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                     }
                     title="Anamnesis"
                     subheader={`Days per month with symptoms: ${(new Set([...symptoms])).size}`}
+                    action={
+                        <IconButton
+                            aria-label="Delete anamnesis"
+                            onClick={openDeleteAnamnesisAlert}
+                        >
+                            <DeleteOutline />
+                        </IconButton>
+                    }
                 />
                 <CardContent>
                     <Grid container textAlign="center" spacing={2}>
                         {symptoms.length > 0 ? symptoms.map((symptom, index) => (
-                            <Grid key={index} size={{sm: 4, xs: 12}} spacing={2}>
-                                <SymptomItem symptom={symptom} />
+                            <Grid key={index} size={{lg: 4, sm: 6, xs: 12}}>
+                                <SymptomItem anamnesisId={id} symptom={symptom} />
                             </Grid>
                         )) : (
                             Array.from({ length: 9 }).map((_, index) => (
@@ -119,6 +141,14 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                     <AddSymptoms anamnesisId={id} symptoms={symptoms} />
                 </Collapse>
             </Card>
+            <SnackbarAlert
+                message="Do you want to delete this anamnesis?"
+                severity="warning"
+                type="deleteAnamnesis"
+                hasConfirm={true}
+                hasAction={true}
+                onClick={deleteAnamnesis}
+            />
         </Grid>
     )
 }

@@ -39,9 +39,12 @@ export const Header: FC = () => {
                                 width: matches ? '50%' : '100%',
                                 flexDirection: 'row',
                                 justifyContent: 'space-between',
+                                alignItems: 'center'
                             }}
                         >
-                            <GenerationMenu />
+                            <Box>
+                                <GenerationMenu />
+                            </Box>
                             {[Criteria.Finance, Criteria.BudgetDetails].includes(title as Criteria) && (
                                 <Toolbar />
                             )}

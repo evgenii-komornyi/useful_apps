@@ -14,7 +14,7 @@ interface IProps {
 
 export const ApplicationItem = ({ application }: IProps): ReactElement => {
     return (
-        <Grid size={{ xs: 12, sm: 12, md: 6, lg: 4, xl: 4 }}>
+        <Grid size={{ xs: 12, sm: 6, md: 4 }}>
             <NavLink to={`/${application.link}`}>
                 <ApplicationBoxContainer>
                     <AnimatedIconContainer>

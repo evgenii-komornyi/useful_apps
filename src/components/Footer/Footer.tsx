@@ -23,6 +23,7 @@ interface MenuItem {
     route: string;
     showCriteria: Criteria[];
 }
+
 const mainMenuItems: MenuItem[] = [
     {
         id: 'main-page',
@@ -46,6 +47,16 @@ const mainMenuItems: MenuItem[] = [
         showCriteria: mainCriteria
     },
 ] as const;
+
+const ROUTE_BY_TITLE: { [key: string]: string }= {
+    [Criteria.Finance]: '/finance/settings',
+    [Criteria.Medical]: '/medical/settings',
+} as const;
+
+const TITLE_BY_ROUTE: { [key: string]: string } = {
+    [Criteria.FinanceSettings]: 'Finance',
+    [Criteria.MedicalSettings]: 'Medical',
+} as const;
 
 export const Footer = () => {
     const [value, setValue] = useState<number>(0);
@@ -81,20 +92,20 @@ export const Footer = () => {
                         to="/finance/visualization"
                     />
                 )}
-                {financeCriteria.includes(title as Criteria) && (
+                {[...financeCriteria, ...medicalCriteria].includes(title as Criteria) && (
                     <BottomNavigationAction
                         label="Settings"
                         icon={<SettingsOutlined />}
                         component={Link}
-                        to="/finance/settings"
+                        to={ROUTE_BY_TITLE[title]}
                     />
                 )}
-                {[Criteria.FinanceSettings, Criteria.DataVisualization].includes(title as Criteria) && (
+                {[Criteria.FinanceSettings, Criteria.DataVisualization, Criteria.MedicalSettings].includes(title as Criteria) && (
                     <BottomNavigationAction
                         label="Back"
                         icon={<ArrowBackIosOutlined />}
                         onClick={() => {
-                            setTitle('Finance');
+                            setTitle(TITLE_BY_ROUTE[title]);
                             navigate(-1);
                         }}
                     />

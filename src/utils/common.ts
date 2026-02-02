@@ -195,3 +195,24 @@ export interface IAnamnesisState {
     addSymptom: (anamnesisId: string, newSymptom: ISymptom) => void;
     removeSymptom: (anamnesisId: string, symptomToRemove: ISymptom) => void;
 }
+
+interface IExportEntity {
+    anamnesis?: IAnamnesis[];
+    user?: User;
+    budget?: Budget[];
+}
+
+export const createLink = (entity: IExportEntity, fileName: string, ext: string | undefined = 'json', type: string | undefined = 'application/json') => {
+    const jsonString = JSON.stringify(entity, null, 2);
+    const blob = new Blob([jsonString], { type });
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${fileName}.${ext}`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+
+    URL.revokeObjectURL(url);
+}

@@ -2,29 +2,23 @@ import { FC } from 'react';
 import { Dropzone, FileMosaic, ExtFile } from '@files-ui/react';
 import {
     Align,
-    Budget,
-    Direction,
+    Direction, IAnamnesis,
     Justify,
-    User,
-} from '../../../../../../../../../../../../utils/common';
-import { MainBoxContainer } from '../../../../../../../../../../../../styles/Global';
+} from '../../../../../../../../../../../../utils/common.ts';
+import { MainBoxContainer } from '../../../../../../../../../../../../styles/Global.ts';
 import { Button } from '@mui/material';
 import { CloudDownloadOutlined } from '@mui/icons-material';
-import { useFinanceSettingsStore } from '../../../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
-import { useBudgetStore } from '../../../../../../../../../../../../stores/finance-app/budget/useBudgetStore';
+import { useAnamnesisStore } from '../../../../../../../../../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 import { useFileImport } from '../../../../../../../../../../../../hooks/import/useFileImport.ts';
 
 export const Import: FC = () => {
-    const { importSettings } = useFinanceSettingsStore(state => state);
-    const { setBudget } = useBudgetStore(state => state);
+    const { setAnamnesis } = useAnamnesisStore(state => state);
 
     const { files, updateFiles, removeFile, handleImport } = useFileImport<{
-        user: User;
-        budget: Budget[];
+        anamnesis: IAnamnesis[];
     }>(data => {
-        if (data.user && data.budget) {
-            importSettings(data.user);
-            setBudget(data.budget);
+        if (data.anamnesis) {
+            setAnamnesis(data.anamnesis)
         }
     });
 
@@ -62,7 +56,7 @@ export const Import: FC = () => {
                 }}
                 endIcon={<CloudDownloadOutlined />}
             >
-                Import budget and settings
+                Import anamnesis
             </Button>
         </MainBoxContainer>
     );

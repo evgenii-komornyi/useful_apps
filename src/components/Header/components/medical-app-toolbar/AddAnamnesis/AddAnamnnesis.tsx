@@ -20,16 +20,20 @@ export const AddAnamnesis: FC = () => {
         addAnamnesis(newAnamnesis)
     }
 
+    const disabled: boolean = anamnesis.some(item =>
+        item.month === now.getMonth() && item.year === now.getFullYear()
+    );
+
     return (
-        <Tooltip title="Add Anamnesis">
-            <IconButton
-                onClick={addNewAnamnesis}
-                disabled={anamnesis.some(item =>
-                    item.month === now.getMonth() && item.year === now.getFullYear()
-                )}
-            >
-                <AddCircleOutlineOutlined />
-            </IconButton>
+        <Tooltip title={disabled ? '' : 'Add Anamnesis'}>
+            <span>
+                <IconButton
+                    onClick={addNewAnamnesis}
+                    disabled={disabled}
+                >
+                    <AddCircleOutlineOutlined />
+                </IconButton>
+            </span>
         </Tooltip>
     );
 }

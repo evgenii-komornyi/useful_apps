@@ -5,6 +5,7 @@ export enum Criteria {
     BudgetDetails = 'BudgetDetails',
     DataVisualization = 'DataVisualization',
     FinanceSettings = 'FinanceSettings',
+    MedicalSettings = 'MedicalSettings',
 }
 
 export const mainCriteria: Criteria[] = [
@@ -16,5 +17,5 @@ export const financeCriteria: Criteria[] = [
 ] as const;
 
 export const medicalCriteria: Criteria[] = [
-    Criteria.Medical
+    Criteria.Medical, Criteria.MedicalSettings
 ] as const;

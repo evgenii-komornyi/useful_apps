@@ -1,16 +1,14 @@
 import { BackupOutlined } from '@mui/icons-material';
 import { Button } from '@mui/material';
 import { FC } from 'react';
-import { useFinanceSettingsStore } from '../../../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
-import { useBudgetStore } from '../../../../../../../../../../../../stores/finance-app/budget/useBudgetStore';
+import { useAnamnesisStore } from '../../../../../../../../../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 import { createLink } from '../../../../../../../../../../../../utils/common.ts';
 
 export const Export: FC = () => {
-    const { user } = useFinanceSettingsStore(state => state);
-    const { budget } = useBudgetStore(state => state);
+    const {anamnesis} = useAnamnesisStore(state=>state);
 
     const handleExport = () => {
-        createLink({user, budget}, 'finance_app');
+        createLink({ anamnesis }, 'medical_app');
     };
 
     return (
@@ -25,7 +23,7 @@ export const Export: FC = () => {
             endIcon={<BackupOutlined />}
             onClick={handleExport}
         >
-            Export budget and settings
+            Export anamnesis data
         </Button>
     );
 };

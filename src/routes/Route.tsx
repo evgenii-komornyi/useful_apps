@@ -7,6 +7,7 @@ import { FinanceSettings } from '../pages/finance-settings';
 import { BudgetDetails } from '../pages/budget-details';
 import { DataVisualization } from '../pages/data-visualization';
 import { Medical } from '../pages/medical';
+import { MedicalSettings } from '../pages/medical-settings';
 
 interface IRoute {
     path: string;
@@ -27,6 +28,7 @@ const financeRoutes: IRoute[] = [
 
 const medicalRoutes: IRoute[] = [
     { path: '/medical', page: <Medical /> },
+    { path: '/medical/settings', page: <MedicalSettings /> },
 ]
 
 const allRoutes: IRoute[] = [
