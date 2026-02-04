@@ -6,7 +6,7 @@ import {
     CardHeader,
     Chip,
     Collapse,
-    IconButton, Skeleton
+    IconButton, Typography
 } from '@mui/material';
 import { useFinanceSettingsStore } from '../../../../stores/finance-app/settings/useSettingsStore.ts';
 import Grid from '@mui/material/Grid2';
@@ -17,8 +17,6 @@ import { AddSymptoms } from './components/AddSymptoms';
 import { SymptomItem } from './components/SymptomItem';
 import { isToday } from '../../../../utils/checkers/date.ts';
 import { AddchartOutlined, DeleteOutline, QueryStatsOutlined } from '@mui/icons-material';
-import { useSnackbarStore } from '../../../../stores/common/snackbar/useSnackbarStore.ts';
-import { SnackbarAlert } from '../../../SnackbarAlert';
 import { useAnamnesisStore } from '../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 
 interface Props {
@@ -28,7 +26,6 @@ interface Props {
 }
 
 export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, symptoms }, expanded, onExpandClick }) => {
-    const { setIsOpened } = useSnackbarStore(state => state);
     const { user } = useFinanceSettingsStore(state => state);
     const { removeAnamnesis } = useAnamnesisStore(state => state);
 
@@ -36,17 +33,8 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
         onExpandClick(id);
     };
 
-    const openDeleteAnamnesisAlert = () => {
-        setIsOpened(true, 'deleteAnamnesis');
-    }
-
     const handleGenerateReportClick = () => {
         alert(`Here be your dragon soon`);
-    }
-
-    const deleteAnamnesis = () => {
-        removeAnamnesis(id);
-        setIsOpened(false, 'deleteAnamnesis');
     }
 
     return (
@@ -68,7 +56,7 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                     action={
                         <IconButton
                             aria-label="Delete anamnesis"
-                            onClick={openDeleteAnamnesisAlert}
+                            onClick={() => removeAnamnesis(id)}
                         >
                             <DeleteOutline />
                         </IconButton>
@@ -81,16 +69,8 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                                 <SymptomItem anamnesisId={id} symptom={symptom} />
                             </Grid>
                         )) : (
-                            Array.from({ length: 9 }).map((_, index) => (
-                                <Grid key={index} size={{sm: 4}}>
-                                    <Card>
-                                        <CardHeader
-                                            avatar={<Skeleton variant="circular" width={32} height={32} animation="wave" />}
-                                            title={<Skeleton variant="text" width="60%" animation="wave" />}
-                                        />
-                                    </Card>
-                                </Grid>
-                            )))}
+                            <Typography variant={'body1'}>No Symptoms</Typography>
+                        )}
                     </Grid>
                 </CardContent>
                 <CardActions disableSpacing>
@@ -141,14 +121,6 @@ export const AnamnesisItem: FC<Props> = ({ anamnesisItem: { id, year, month, sym
                     <AddSymptoms anamnesisId={id} symptoms={symptoms} />
                 </Collapse>
             </Card>
-            <SnackbarAlert
-                message="Do you want to delete this anamnesis?"
-                severity="warning"
-                type="deleteAnamnesis"
-                hasConfirm={true}
-                hasAction={true}
-                onClick={deleteAnamnesis}
-            />
         </Grid>
     )
 }

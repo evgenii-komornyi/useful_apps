@@ -1,6 +1,5 @@
 import {
-    SentimentDissatisfied,
-    SentimentSatisfied, SentimentSatisfiedAlt,
+    SentimentSatisfied,
     SentimentVeryDissatisfiedOutlined,
     SentimentVerySatisfied
 } from '@mui/icons-material';
@@ -15,29 +14,19 @@ interface CustomIcon {
 }
 
 export const CUSTOM_ICONS: CustomIcon = {
-    5: {
-        icon: <SentimentVeryDissatisfiedOutlined color="error" />,
-        label: 'Very Dissatisfied',
-        color: "error"
-    },
-    4: {
-        icon: <SentimentDissatisfied color="error" />,
-        label: 'Dissatisfied',
-        color: "error"
-    },
     3: {
-        icon: <SentimentSatisfied color="warning" />,
-        label: 'Neutral',
-        color: "warning"
+        icon: <SentimentVeryDissatisfiedOutlined color="error" />,
+        label: 'Strong',
+        color: "error"
     },
     2: {
-        icon: <SentimentSatisfiedAlt color="success" />,
-        label: 'Satisfied',
-        color: "success"
+        icon: <SentimentSatisfied color="warning" />,
+        label: 'Normal',
+        color: "warning"
     },
     1: {
         icon: <SentimentVerySatisfied color="success" />,
-        label: 'Very Satisfied',
+        label: 'Mild',
         color: "success"
     },
 } as const;

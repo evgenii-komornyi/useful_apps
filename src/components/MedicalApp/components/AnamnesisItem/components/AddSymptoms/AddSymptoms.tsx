@@ -1,11 +1,9 @@
-import { Button, CardContent, Chip, Rating, Stack, TextField } from '@mui/material';
+import { Button, CardContent, Chip, Slider, Stack, TextField, } from '@mui/material';
 import { DeleteTwoTone, NoteAddOutlined } from '@mui/icons-material';
 import { ChangeEvent, FC, useState } from 'react';
 import { ISymptom, SymptomDate, SymptomType } from '../../../../../../utils/common.ts';
 import { useAnamnesisStore } from '../../../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
-import { styled } from '@mui/material/styles';
 import { CUSTOM_ICONS } from '../../../../../../constants/common.tsx';
-import { IconContainer } from '../PainRate.util.tsx';
 import { isTodayIncludingDay } from '../../../../../../utils/checkers/date.ts';
 
 interface Props {
@@ -13,18 +11,12 @@ interface Props {
     symptoms: ISymptom[];
 }
 
-const StyledRating = styled(Rating)(({ theme }) => ({
-    '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
-        color: theme.palette.action.active,
-    },
-}));
-
 export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
     const { addSymptom: addSymptomToAnamnesis } = useAnamnesisStore();
 
     const [symptomTitle, setSymptomTitle] = useState<string>('');
     const [symptomsState, setSymptomsState] = useState<SymptomType[]>([]);
-    const [painRate, setPainRate] = useState<1 | 2 | 3 | 4 | 5>(5);
+    const [painRate, setPainRate] = useState<1 | 2 | 3>(3);
 
     const availableSymptoms: SymptomType[] = [SymptomType.Headache, SymptomType.AcidIndigestion];
 
@@ -44,7 +36,7 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
     const resetStats = () => {
         setSymptomsState([]);
         setSymptomTitle('');
-        setPainRate(5);
+        setPainRate(3);
     }
 
     const saveToAnamnesis = () => {
@@ -106,17 +98,20 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
             </Stack>
             {symptomsState.some(s => s === SymptomType.Headache) && (
                 <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mt: 4, alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Chip label={`Rate your symptoms pain: ${painRate ? CUSTOM_ICONS[painRate].label : ''}`} color={painRate ? CUSTOM_ICONS[painRate].color : "secondary"} variant="outlined" />
-                    <StyledRating
-                        name="highlight-selected-only"
-                        value={painRate}
-                        onChange={(_, newValue) => {
-                            setPainRate(newValue ? newValue as 1 | 2 | 3 | 4 | 5 : 5);
-                        }}
-                        IconContainerComponent={IconContainer}
-                        getLabelText={(value: number) => CUSTOM_ICONS[value].label}
-                        highlightSelectedOnly
-                    />
+                    <Chip label={`Rate your symptom pain: ${painRate ? CUSTOM_ICONS[painRate].label : ''}`} color={painRate ? CUSTOM_ICONS[painRate].color : "secondary"} variant="outlined" />
+                    <Stack direction="row" spacing={3} width={200} alignItems="center">
+                            {CUSTOM_ICONS[painRate].icon}
+                            <Slider
+                                value={painRate}
+                                onChange={(_, newValue) => setPainRate(newValue as 1 | 2 | 3)}
+                                aria-labelledby="input-slider"
+                                step={1}
+                                min={1}
+                                max={3}
+                                marks
+                                color={painRate ? CUSTOM_ICONS[painRate].color : "secondary"}
+                            />
+                    </Stack>
                 </Stack>
             )}
             {symptomsState.some(s => s === SymptomType.AcidIndigestion) && (
