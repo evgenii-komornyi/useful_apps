@@ -2,7 +2,8 @@ import { FC } from 'react';
 import { Dropzone, FileMosaic, ExtFile } from '@files-ui/react';
 import {
     Align,
-    Direction, IAnamnesis,
+    Direction,
+    IAnamnesis,
     Justify,
 } from '../../../../../../../../../../../../utils/common.ts';
 import { MainBoxContainer } from '../../../../../../../../../../../../styles/Global.ts';

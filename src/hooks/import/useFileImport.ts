@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { ExtFile } from '@files-ui/react';
 
-export const useFileImport = <T,>(onImport: (data: T) => void) => {
+export const useFileImport = <T>(onImport: (data: T) => void) => {
     const [files, setFiles] = useState<ExtFile[]>([]);
 
     const updateFiles = (incommingFiles: ExtFile[]) => {
