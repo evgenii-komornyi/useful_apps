@@ -13,10 +13,12 @@ import { CloudDownloadOutlined } from '@mui/icons-material';
 import { useFinanceSettingsStore } from '../../../../../../../../../../../../stores/finance-app/settings/useSettingsStore';
 import { useBudgetStore } from '../../../../../../../../../../../../stores/finance-app/budget/useBudgetStore';
 import { useFileImport } from '../../../../../../../../../../../../hooks/import/useFileImport.ts';
+import { useSnackbarStore } from '../../../../../../../../../../../../stores/common/snackbar/useSnackbarStore.ts';
 
 export const Import: FC = () => {
     const { importSettings } = useFinanceSettingsStore(state => state);
     const { setBudget } = useBudgetStore(state => state);
+    const { setIsOpened } = useSnackbarStore(state => state);
 
     const { files, updateFiles, removeFile, handleImport } = useFileImport<{
         user: User;
@@ -25,6 +27,7 @@ export const Import: FC = () => {
         if (data.user && data.budget) {
             importSettings(data.user);
             setBudget(data.budget);
+            setIsOpened(true, 'import');
         }
     });
 

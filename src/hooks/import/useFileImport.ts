@@ -21,6 +21,7 @@ export const useFileImport = <T,>(onImport: (data: T) => void) => {
             try {
                 const data: T = JSON.parse(event.target?.result as string);
                 onImport(data);
+                setFiles([]);
             } catch (err) {
                 console.error('Invalid JSON:', err);
             }

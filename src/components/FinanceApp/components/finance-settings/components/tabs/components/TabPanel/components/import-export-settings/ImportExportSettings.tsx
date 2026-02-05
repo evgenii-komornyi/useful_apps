@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Import } from './components/Import';
 import { Export } from './components/Export';
 import { Box, Divider } from '@mui/material';
+import { SnackbarAlert } from '../../../../../../../../../SnackbarAlert';
 
 export const ImportExportSettings: FC = () => {
     return (
@@ -24,6 +25,11 @@ export const ImportExportSettings: FC = () => {
             </Box>
             <Divider />
             <Import />
+            <SnackbarAlert
+                message='Your data was imported successfuly.'
+                type='import'
+                autoHideDuration={2000}
+            />    
         </Box>
     );
 };

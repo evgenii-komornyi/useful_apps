@@ -10,15 +10,18 @@ import { Button } from '@mui/material';
 import { CloudDownloadOutlined } from '@mui/icons-material';
 import { useAnamnesisStore } from '../../../../../../../../../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 import { useFileImport } from '../../../../../../../../../../../../hooks/import/useFileImport.ts';
+import { useSnackbarStore } from '../../../../../../../../../../../../stores/common/snackbar/useSnackbarStore.ts';
 
 export const Import: FC = () => {
     const { setAnamnesis } = useAnamnesisStore(state => state);
+    const { setIsOpened } = useSnackbarStore();
 
     const { files, updateFiles, removeFile, handleImport } = useFileImport<{
         anamnesis: IAnamnesis[];
     }>(data => {
         if (data.anamnesis) {
-            setAnamnesis(data.anamnesis)
+            setAnamnesis(data.anamnesis);
+            setIsOpened(true, 'import');
         }
     });
 

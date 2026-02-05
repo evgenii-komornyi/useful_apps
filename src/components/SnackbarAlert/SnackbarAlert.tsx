@@ -56,6 +56,11 @@ export const SnackbarAlert: FC<Props> = ({
         if (reason === 'clickaway') {
             return;
         }
+        if (autoHideDuration) {
+            setTimeout(() => {
+                setIsOpened(false, type);
+            }, autoHideDuration);
+        }
         setIsOpened(false, type);
     };
 
