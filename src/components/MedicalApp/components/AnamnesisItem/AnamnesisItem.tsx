@@ -1,136 +1,71 @@
 import { FC } from 'react';
-import { IAnamnesis } from '../../../../utils/common.ts';
 import {
+    Avatar,
     Card,
-    CardActions,
     CardContent,
     CardHeader,
-    Chip,
-    Collapse,
-    IconButton,
-    Typography,
+    Grid2 as Grid,
 } from '@mui/material';
-import { useFinanceSettingsStore } from '../../../../stores/finance-app/settings/useSettingsStore.ts';
-import Grid from '@mui/material/Grid2';
-import { formatDateByLocale } from '../../../../utils/formatters/dates.ts';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCalendarPlus,
-    faCalendarXmark,
-} from '@fortawesome/free-regular-svg-icons';
-import { SymptomItem } from './components/SymptomItem';
-import { isToday } from '../../../../utils/checkers/date.ts';
-import { DeleteOutline } from '@mui/icons-material';
-import { useAnamnesisStore } from '../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
-import { ReportGeneration } from './components/ReportGeneration';
+import dayjs, { Dayjs } from 'dayjs';
+import { IAnamnesis } from '../../../../utils/common';
 
 interface Props {
-    anamnesisItem: IAnamnesis;
-    expanded: boolean;
-    onExpandClick: (anamnesisId: string) => void;
+    selectedDate?: Dayjs;
+    selectedAnamnesis?: IAnamnesis;
 }
 
 export const AnamnesisItem: FC<Props> = ({
-    anamnesisItem: { id, year, month, symptoms },
-    expanded,
-    onExpandClick,
+    selectedAnamnesis,
+    selectedDate,
 }) => {
-    const { user } = useFinanceSettingsStore(state => state);
-    const { removeAnamnesis } = useAnamnesisStore(state => state);
-
-    const handleExpandClick = () => {
-        onExpandClick(id);
-    };
-
     return (
-        <Grid size={{ sm: 6, xs: 12 }}>
-            <Card variant="outlined">
-                <CardHeader
-                    avatar={
-                        <Chip
-                            variant="outlined"
-                            label={`${formatDateByLocale(
-                                user.locale,
-                                new Date(year, month),
-                            )}`}
-                        />
-                    }
-                    title="Anamnesis"
-                    subheader={`Days per month with symptoms: ${new Set([...symptoms]).size}`}
-                    action={
-                        <IconButton
-                            aria-label="Delete anamnesis"
-                            onClick={() => removeAnamnesis(id)}
+        <Grid size={{ xs: 12, sm: 6, lg: 8 }}>
+            {selectedDate ? (
+                <Card>
+                    <CardHeader
+                        title={`Anamnesis`}
+                        subheader={`${selectedDate.format('MMMM D, YYYY')}`}
+                    />
+                </Card>
+            ) : (
+                <Card>
+                    <CardHeader
+                        title={`Anamnesis`}
+                        {...(selectedAnamnesis && {
+                            subheader: `${dayjs(`${selectedAnamnesis?.year}-${selectedAnamnesis?.month + 1}`).format('MMMM YYYY')}`,
+                        })}
+                    />
+                    <CardContent>
+                        <Grid
+                            container
+                            spacing={2}
+                            justifyContent={'flex-start'}
+                            alignItems={'center'}
                         >
-                            <DeleteOutline />
-                        </IconButton>
-                    }
-                />
-                <CardContent>
-                    <Grid container textAlign="center" spacing={2}>
-                        {symptoms.length > 0 ? (
-                            symptoms.map((symptom, index) => (
-                                <Grid
-                                    key={index}
-                                    size={{ lg: 4, sm: 6, xs: 12 }}
-                                >
-                                    <SymptomItem
-                                        anamnesisId={id}
-                                        symptom={symptom}
-                                    />
-                                </Grid>
-                            ))
-                        ) : (
-                            <Typography variant={'body1'}>
-                                No Symptoms
-                            </Typography>
-                        )}
-                    </Grid>
-                </CardContent>
-                <CardActions disableSpacing>
-                    {isToday(month, year) && (
-                        <Card variant="outlined" sx={{ width: '100%' }}>
-                            <CardHeader
-                                avatar={
-                                    <Chip
-                                        color="primary"
-                                        label={new Date().getDate()}
-                                        size="small"
-                                    />
-                                }
-                                title="Add symptom"
-                                subheader={`the symptom will be added for ${formatDateByLocale(
-                                    user.locale,
-                                    new Date(year, month, new Date().getDate()),
-                                    false,
-                                    true,
-                                    true,
-                                )}`}
-                                action={
-                                    <IconButton
-                                        aria-label="add symptom"
-                                        aria-expanded={expanded}
-                                        onClick={handleExpandClick}
+                            {selectedAnamnesis?.symptoms
+                                .sort((a, b) => a.date.day - b.date.day)
+                                .map((symptom, index) => (
+                                    <Grid
+                                        key={`${symptom.title}-${index}`}
+                                        size={{ lg: 4, sm: 6, xs: 12 }}
                                     >
-                                        <FontAwesomeIcon
-                                            icon={
-                                                !expanded
-                                                    ? faCalendarPlus
-                                                    : faCalendarXmark
-                                            }
-                                            size="sm"
-                                        />
-                                    </IconButton>
-                                }
-                            />
-                        </Card>
-                    )}
-                    {!isToday(month, year) && <ReportGeneration />}
-                </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    {/*<AddSymptoms anamnesisId={id} symptoms={symptoms} />*/}
-                </Collapse>
-            </Card>
+                                        <Card variant="outlined">
+                                            <CardHeader
+                                                avatar={
+                                                    <Avatar variant="square">
+                                                        {symptom.date.day}
+                                                    </Avatar>
+                                                }
+                                                title={symptom.title}
+                                            />
+                                            <CardContent></CardContent>
+                                        </Card>
+                                    </Grid>
+                                ))}
+                        </Grid>
+                    </CardContent>
+                </Card>
+            )}
         </Grid>
     );
 };

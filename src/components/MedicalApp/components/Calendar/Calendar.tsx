@@ -11,10 +11,11 @@ import {
     CardContent,
     CardHeader,
     Collapse,
+    Grid2 as Grid,
     IconButton,
 } from '@mui/material';
 import { useAnamnesisStore } from '../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
-import { AddSymptoms } from '../AnamnesisItem/components/AddSymptoms';
+import { AddSymptoms } from './components/AddSymptoms';
 import { formatDateByLocale } from '../../../../utils/formatters/dates.ts';
 import { useFinanceSettingsStore } from '../../../../stores/finance-app/settings/useSettingsStore.ts';
 import {
@@ -107,7 +108,7 @@ export const Calendar: FC<Props> = ({
 
     useEffect(() => {
         fetchHighlightedDays(dayjs());
-    }, []);
+    }, [selectedDate]);
 
     const onMonthChangeHandler = (newDate: Dayjs) => {
         fetchHighlightedDays(newDate);
@@ -121,73 +122,76 @@ export const Calendar: FC<Props> = ({
     };
 
     return (
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Card>
-                <CardContent>
-                    <DateCalendar
-                        disableFuture
-                        onChange={onChange}
-                        onMonthChange={onMonthChangeHandler}
-                        autoFocus={true}
-                        slots={{
-                            day: ServerDay,
-                        }}
-                        slotProps={{
-                            day: {
-                                highlightedDays,
-                            } as any,
-                        }}
-                    />
-                </CardContent>
-                <CardActions disableSpacing>
-                    <Card variant="outlined" sx={{ width: '100%' }}>
-                        <CardHeader
-                            avatar={<CalendarMonthOutlined />}
-                            title="Select date"
-                            subheader={
-                                selectedDate
-                                    ? `the symptom will be added for ${formatDateByLocale(
-                                          user.locale,
-                                          new Date(
-                                              selectedDate?.year(),
-                                              selectedDate?.month(),
-                                              selectedDate?.date(),
-                                          ),
-                                          false,
-                                          true,
-                                          true,
-                                      )}`
-                                    : ''
-                            }
-                            action={
-                                expanded && (
-                                    <IconButton
-                                        onClick={onClose}
-                                        aria-label="close"
-                                        aria-expanded={expanded}
-                                    >
-                                        <CloseOutlined />
-                                    </IconButton>
-                                )
-                            }
+        <Grid size={{ xs: 12, sm: 6, lg: 4 }}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <Card>
+                    <CardContent>
+                        <DateCalendar
+                            disableFuture
+                            onChange={onChange}
+                            onMonthChange={onMonthChangeHandler}
+                            autoFocus={true}
+                            slots={{
+                                day: ServerDay,
+                            }}
+                            slotProps={{
+                                day: {
+                                    highlightedDays,
+                                } as any,
+                            }}
                         />
-                    </Card>
-                </CardActions>
-                <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <AddSymptoms
-                        date={selectedDate}
-                        symptoms={
-                            anamnesis.find(
-                                anamnesisItem =>
-                                    anamnesisItem.year ===
-                                        selectedDate?.year() &&
-                                    anamnesisItem.month ===
-                                        selectedDate?.month(),
-                            )?.symptoms
-                        }
-                    />
-                </Collapse>
-            </Card>
-        </LocalizationProvider>
+                    </CardContent>
+                    <CardActions disableSpacing>
+                        <Card variant="outlined" sx={{ width: '100%' }}>
+                            <CardHeader
+                                avatar={<CalendarMonthOutlined />}
+                                title="Select date"
+                                subheader={
+                                    selectedDate
+                                        ? `the symptom will be added for ${formatDateByLocale(
+                                              user.locale,
+                                              new Date(
+                                                  selectedDate?.year(),
+                                                  selectedDate?.month(),
+                                                  selectedDate?.date(),
+                                              ),
+                                              false,
+                                              true,
+                                              true,
+                                          )}`
+                                        : ''
+                                }
+                                action={
+                                    expanded && (
+                                        <IconButton
+                                            onClick={onClose}
+                                            aria-label="close"
+                                            aria-expanded={expanded}
+                                        >
+                                            <CloseOutlined />
+                                        </IconButton>
+                                    )
+                                }
+                            />
+                        </Card>
+                    </CardActions>
+                    <Collapse in={expanded} timeout="auto" unmountOnExit>
+                        <AddSymptoms
+                            date={selectedDate}
+                            symptoms={
+                                anamnesis.find(
+                                    anamnesisItem =>
+                                        anamnesisItem.year ===
+                                            selectedDate?.year() &&
+                                        anamnesisItem.month ===
+                                            selectedDate?.month(),
+                                )?.symptoms
+                            }
+                            onClose={onClose}
+                        />
+                    </Collapse>
+                </Card>
+            </LocalizationProvider>
+        </Grid>
     );
 };
