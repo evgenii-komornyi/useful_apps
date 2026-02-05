@@ -174,7 +174,7 @@ export enum SymptomType {
 export interface ISymptom {
     title: SymptomType;
     date: SymptomDate;
-    painRate?: 1 | 2 | 3 | 4| 5;
+    painRate?: 1 | 2 | 3;
     food?: string[];
 }
 

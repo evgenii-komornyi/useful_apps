@@ -1,18 +1,19 @@
-import { Button, CardContent, Chip, Slider, Stack, TextField, } from '@mui/material';
+import { Button, CardContent, Chip, Slider, Stack, TextField } from '@mui/material';
 import { DeleteTwoTone, NoteAddOutlined } from '@mui/icons-material';
 import { ChangeEvent, FC, useState } from 'react';
-import { ISymptom, SymptomDate, SymptomType } from '../../../../../../utils/common.ts';
+import { IAnamnesis, ISymptom, SymptomDate, SymptomType } from '../../../../../../utils/common.ts';
 import { useAnamnesisStore } from '../../../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
 import { CUSTOM_ICONS } from '../../../../../../constants/common.tsx';
-import { isTodayIncludingDay } from '../../../../../../utils/checkers/date.ts';
+import { Dayjs } from 'dayjs';
+import { v4 as uuid } from 'uuid';
 
 interface Props {
-    anamnesisId: string;
-    symptoms: ISymptom[];
+    symptoms?: ISymptom[];
+    date?: Dayjs
 }
 
-export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
-    const { addSymptom: addSymptomToAnamnesis } = useAnamnesisStore();
+export const AddSymptoms: FC<Props> = ({ date, symptoms }) => {
+    const { addSymptom: addSymptomToAnamnesis, anamnesis, addAnamnesis } = useAnamnesisStore(state => state);
 
     const [symptomTitle, setSymptomTitle] = useState<string>('');
     const [symptomsState, setSymptomsState] = useState<SymptomType[]>([]);
@@ -39,8 +40,43 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
         setPainRate(3);
     }
 
+    const addSymptoms = (dateToSave: SymptomDate, anamnesisId: string) => {
+        symptomsState.forEach(s => {
+            const symptomToSave: ISymptom = {
+                title: s,
+                date: dateToSave,
+                ...(s === SymptomType.Headache ? { painRate } : {food: []})
+            }
+            addSymptomToAnamnesis(anamnesisId, symptomToSave)
+        });
+    }
+
     const saveToAnamnesis = () => {
-        const now: Date = new Date();
+        const existingAnamnesis: IAnamnesis = anamnesis.find(anamnesisItem => anamnesisItem.month === date?.month()  && anamnesisItem.year === date?.year())!;
+
+        if (date) {
+            const dateToSave: SymptomDate = {
+                year: date.year(),
+                month: date.month(),
+                day: date.date()
+            }
+
+            resetStats();
+
+            if (!existingAnamnesis) {
+                const newAnamnesis: IAnamnesis = {
+                    id: uuid(),
+                    month: date.month(),
+                    year: date.year(),
+                    symptoms: []
+                }
+                addAnamnesis(newAnamnesis)
+                addSymptoms(dateToSave, newAnamnesis.id)
+            } else {
+                addSymptoms(dateToSave, existingAnamnesis.id)
+            }
+        }
+        /*const now: Date = new Date();
         const dateToSave: SymptomDate = {
             year: now.getFullYear(),
             month: now.getMonth(),
@@ -56,12 +92,11 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
             addSymptomToAnamnesis(anamnesisId, symptomToSave)
         });
 
-        resetStats();
+        resetStats();*/
     }
 
     const isTodayDisabled = (symptom: SymptomType) =>
-        symptoms.some(s =>
-            isTodayIncludingDay(s.date.day, s.date.month, s.date.year) &&
+        symptoms?.some(s => s.date.day === date?.date() && s.date.month === date?.month() && s.date.year === date?.year() &&
             s.title === symptom
         );
 
@@ -98,7 +133,7 @@ export const AddSymptoms: FC<Props> = ({ anamnesisId, symptoms}) => {
             </Stack>
             {symptomsState.some(s => s === SymptomType.Headache) && (
                 <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mt: 4, alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Chip label={`Rate your symptom pain: ${painRate ? CUSTOM_ICONS[painRate].label : ''}`} color={painRate ? CUSTOM_ICONS[painRate].color : "secondary"} variant="outlined" />
+                    <Chip label={`Pain rate: ${painRate ? CUSTOM_ICONS[painRate].label : ''}`} color={painRate ? CUSTOM_ICONS[painRate].color : "secondary"} variant="outlined" />
                     <Stack direction="row" spacing={3} width={200} alignItems="center">
                             {CUSTOM_ICONS[painRate].icon}
                             <Slider

@@ -18,12 +18,11 @@ import {
     faCalendarPlus,
     faCalendarXmark,
 } from '@fortawesome/free-regular-svg-icons';
-import { AddSymptoms } from './components/AddSymptoms';
 import { SymptomItem } from './components/SymptomItem';
 import { isToday } from '../../../../utils/checkers/date.ts';
 import { DeleteOutline } from '@mui/icons-material';
 import { useAnamnesisStore } from '../../../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
-import { ReportGeneration } from './components/ReportGeneration/ReportGeneration.tsx';
+import { ReportGeneration } from './components/ReportGeneration';
 
 interface Props {
     anamnesisItem: IAnamnesis;
@@ -129,7 +128,7 @@ export const AnamnesisItem: FC<Props> = ({
                     {!isToday(month, year) && <ReportGeneration />}
                 </CardActions>
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
-                    <AddSymptoms anamnesisId={id} symptoms={symptoms} />
+                    {/*<AddSymptoms anamnesisId={id} symptoms={symptoms} />*/}
                 </Collapse>
             </Card>
         </Grid>

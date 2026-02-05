@@ -12,8 +12,7 @@ import { GenerationMenu } from './components/generation-menu';
 import { Toolbar } from '../FinanceApp/components/finance-cards/components/BudgetItem/components/Expenses/components/Toolbar';
 import { useTitleStore } from '../../stores/common/title/useTitleStore.ts';
 import { Box } from '@mui/system';
-import { Criteria, financeCriteria, mainCriteria, medicalCriteria } from '../../utils/criteria/criteria.ts';
-import { MedicalAppToolbar } from './components/medical-app-toolbar/';
+import { Criteria, mainCriteria, medicalCriteria } from '../../utils/criteria/criteria.ts';
 
 export const Header: FC = () => {
     const { title } = useTitleStore(state => state);
@@ -50,7 +49,7 @@ export const Header: FC = () => {
                             )}
                         </Box>
                     )}
-                    {![...mainCriteria, ...financeCriteria].includes(title as Criteria) && (
+                    {/*{![...mainCriteria, ...financeCriteria].includes(title as Criteria) && (
                         <Box
                             sx={{
                                 display: 'flex',
@@ -63,7 +62,7 @@ export const Header: FC = () => {
                                 <MedicalAppToolbar />
                             )}
                         </Box>
-                    )}
+                    )}*/}
                     <CurrentDateTime />
                 </MUIToolbar>
             </Container>
