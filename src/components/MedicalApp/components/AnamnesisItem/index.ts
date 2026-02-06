@@ -1,1 +1,0 @@
-export { AnamnesisItem } from './AnamnesisItem'

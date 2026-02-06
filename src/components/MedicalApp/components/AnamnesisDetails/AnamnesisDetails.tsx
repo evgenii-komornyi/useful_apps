@@ -14,7 +14,7 @@ interface Props {
     selectedAnamnesis?: IAnamnesis;
 }
 
-export const AnamnesisItem: FC<Props> = ({
+export const AnamnesisDetails: FC<Props> = ({
     selectedAnamnesis,
     selectedDate,
 }) => {

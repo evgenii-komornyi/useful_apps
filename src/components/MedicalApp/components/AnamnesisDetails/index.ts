@@ -1,0 +1,1 @@
+export { AnamnesisDetails } from './AnamnesisDetails.tsx'

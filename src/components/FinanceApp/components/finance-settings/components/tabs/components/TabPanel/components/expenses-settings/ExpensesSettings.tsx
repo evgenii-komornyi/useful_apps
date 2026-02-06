@@ -9,9 +9,9 @@ import {
 } from '../../../../../../../../../../utils/common.ts';
 import { useBudgetStore } from '../../../../../../../../../../stores/finance-app/budget/useBudgetStore.ts';
 import { v4 as uuidv4 } from 'uuid';
-import { Form } from '../Form/Form.tsx';
+import { Form } from '../Form';
 import { ChildWrapper, MainWrapper } from '../styles/TabPanel.tsx';
-import { FormControl } from '../FormControl/FormControl.tsx';
+import { FormControl } from '../FormControl';
 
 export const ExpensesSettings: FC = () => {
     const { user, setExpense } = useFinanceSettingsStore(state => state);

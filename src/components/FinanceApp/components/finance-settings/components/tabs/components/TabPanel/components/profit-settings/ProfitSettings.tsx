@@ -10,8 +10,8 @@ import {
 import { useBudgetStore } from '../../../../../../../../../../stores/finance-app/budget/useBudgetStore.ts';
 import { v4 as uuidv4 } from 'uuid';
 import { ChildWrapper, MainWrapper } from '../styles/TabPanel.tsx';
-import { Form } from '../Form/Form.tsx';
-import { FormControl } from '../FormControl/FormControl.tsx';
+import { Form } from '../Form';
+import { FormControl } from '../FormControl';
 
 export const ProfitSettings: FC = () => {
     const { user, setProfit } = useFinanceSettingsStore(state => state);

@@ -49,20 +49,6 @@ export const Header: FC = () => {
                             )}
                         </Box>
                     )}
-                    {/*{![...mainCriteria, ...financeCriteria].includes(title as Criteria) && (
-                        <Box
-                            sx={{
-                                display: 'flex',
-                                width: matches ? '50%' : '100%',
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                            }}
-                        >
-                            {[...medicalCriteria].includes(title as Criteria) && (
-                                <MedicalAppToolbar />
-                            )}
-                        </Box>
-                    )}*/}
                     <CurrentDateTime />
                 </MUIToolbar>
             </Container>

@@ -171,6 +171,18 @@ export enum SymptomType {
     AcidIndigestion = 'Acid Indigestion',
 }
 
+export enum SymptomViewType {
+    Text = 'text',
+    Slider = 'slider',
+    Switch = 'switch',
+}
+
+export interface SymptomData {
+    id: string;
+    title: string;
+    type: SymptomViewType;
+}
+
 export interface ISymptom {
     title: SymptomType;
     date: SymptomDate;

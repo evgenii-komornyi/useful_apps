@@ -5,7 +5,8 @@ import { Calendar } from './components/Calendar';
 import dayjs, { Dayjs } from 'dayjs';
 import { IAnamnesis } from '../../utils/common.ts';
 import { useAnamnesisStore } from '../../stores/medical-app/anamnesis/useAnamnesisStore.ts';
-import { AnamnesisItem } from './components/AnamnesisItem/AnamnesisItem.tsx';
+import { AnamnesisDetails } from './components/AnamnesisDetails';
+import { CreateSymptom } from './components/CreateSymptom';
 
 export const MedicalApp: FC = () => {
     const [expanded, setExpanded] = useState<boolean>(false);
@@ -62,10 +63,11 @@ export const MedicalApp: FC = () => {
                         onMonthChange={setSelectedAnamneses}
                         onClose={handleClose}
                     />
-                    <AnamnesisItem
+                    <AnamnesisDetails
                         selectedAnamnesis={selectedAnamnesis}
                         selectedDate={selectedDate}
                     />
+                    <CreateSymptom />
                 </MedicalApplicationContentContainer>
             </Grid>
         </MedicalApplicationContentContainer>
